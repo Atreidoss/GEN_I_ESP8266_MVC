@@ -20,6 +20,6 @@
 #define STASSID "mark2"             // Имя сети WiFi
 #define STAPSK  "mark2mark2"        // Пароль сети WiFi
 
-#define TEST_DEF 333
+#define TEST_DEF 3337777777
 
 #endif
