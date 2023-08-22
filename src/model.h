@@ -1,6 +1,7 @@
 #ifndef model_h
 #define model_h
 
+#include <Arduino.h>
 #include "observable.h"
 #include "menu.h"
 
@@ -13,13 +14,13 @@ public:
     }
 
     // Возвращает имя пункта меню/подменю для указанного индекса
-    string getName(int menuPos)
+    String getName(int menuPos)
     {
         return menuArray[menuPos].name;
     }
 
     // Возвращает имя текущего пункта меню/подменю
-    string getName(void)
+    String getName(void)
     {
         return menuArray[menuNowPos].name;
     }

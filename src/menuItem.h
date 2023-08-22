@@ -1,16 +1,14 @@
 #ifndef menuItem_h
 #define menuItem_h
 
-#include <iostream>
-#include <string>
-using namespace std;
+#include <Arduino.h>
 
 // класс пункта меню
 class MenuItem
 {
 public:
     MenuItem() {}
-    MenuItem(int indG, string text, int mType = 0) : indexGlobal(indG), name(text), type(mType) {}
+    MenuItem(int indG, String text, int mType = 0) : indexGlobal(indG), name(text), type(mType) {}
 
     int indexGlobal = 0; // на начальном этапе инициализации соотвествует номеру элемента массива классов
     int indexParent = 0; // номер родителя
@@ -19,7 +17,7 @@ public:
     int lenght = 0;      // количество дочерних элементов
     int value = 0;       // значение, если пункт меню редактируемый
     int type = 0;        // тип меню : ... 
-    string name = "";    // имя пункта, один из параметров
+    String name = "";    // имя пункта, один из параметров
 };
 
 #endif
