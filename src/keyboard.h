@@ -23,17 +23,17 @@ public:
     int getState(void){
         int state = 0;
         if (up.click() or up.step()){
-            state  = BUTTON_UP;
+            state  = BUTTON_UP_CODE;
         }
         if (down.click() or down.step()){
-            state  = BUTTON_DOWN;
+            state  = BUTTON_DOWN_CODE;
         }
         
         if (enter.click()){
-            state  = BUTTON_ENTER;
+            state  = BUTTON_ENTER_CODE;
         }
         if (enter.held()){
-            state  = BUTTON_UP;
+            state  = BUTTON_UP_CODE;
         }
         return state;
     };
