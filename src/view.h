@@ -17,11 +17,16 @@ public:
     {
         _model = model;
         _model->addObserver(this);
+        displayInit();
     }
 
     void init(void)
     {
-        displayInit();
+        _display.clearBuffer();
+        _display.setFont(u8g2_font_10x20_t_cyrillic);
+        _display.setCursor(0, 32);
+        _display.print("start programm");
+        _display.sendBuffer();
     }
 
     // Если режим редактирования значения - тогда выводим навание пункта текущего
@@ -37,11 +42,11 @@ private:
     Model *_model;
     void draw(void)
     {
-        _display.sendBuffer();
+        _display.clearBuffer();
         _display.setFont(u8g2_font_10x20_t_cyrillic);
         _display.setCursor(0, 32);
         _display.print(_model->getName().c_str());
-        _display.clearBuffer();
+        _display.sendBuffer();
     }
     void drawMainMenu(void)
     {

@@ -36,27 +36,27 @@ private:
         int input = _keyboard.getState();
         switch (input)
         {
-        case BUTTON_UP: // Стрелка вверх
+        case BUTTON_UP_CODE: // Стрелка вверх
         {
             _model->moveUp();
             break;
         }
-        case BUTTON_DOWN: // Стрелка вниз
+        case BUTTON_DOWN_CODE: // Стрелка вниз
         {
             _model->moveDown();
             break;
         }
-        case BUTTON_ENTER: // Ввод
+        case BUTTON_ENTER_CODE: // Ввод
         {
             _model->executeAction();
             break;
         }
-        case BUTTON_ESCAPE: // Эскейп
+        case BUTTON_ESCAPE_CODE: // Эскейп
         {
             _model->cancelAction();
             break;
         }
-        case BUTTON_BACKSPACE: // Бэкспейс
+        case BUTTON_BACKSPACE_CODE: // Бэкспейс
         {
             break;
         }
