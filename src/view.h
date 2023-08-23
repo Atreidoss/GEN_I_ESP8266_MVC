@@ -45,7 +45,8 @@ private:
         _display.clearBuffer();
         _display.setFont(u8g2_font_10x20_t_cyrillic);
         _display.setCursor(0, 32);
-        _display.print(_model->getName().c_str());
+        // _display.print(_model->getName().c_str());
+        _display.print(_model->getPos());
         _display.sendBuffer();
     }
     void drawMainMenu(void)
