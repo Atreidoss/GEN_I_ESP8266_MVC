@@ -22,6 +22,11 @@ public:
         buttonsHandle();
     }
 
+    void init(void)
+    {
+        
+    }
+
 private:
     Model *_model;
     Keyboard _keyboard;
