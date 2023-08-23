@@ -17,6 +17,10 @@ public:
     {
         _model = model;
         _model->addObserver(this);
+    }
+
+    void init(void)
+    {
         displayInit();
     }
 
