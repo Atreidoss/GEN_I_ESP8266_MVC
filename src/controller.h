@@ -24,7 +24,7 @@ public:
 
     void init(void)
     {
-        
+        _keyboard.init();
     }
 
 private:

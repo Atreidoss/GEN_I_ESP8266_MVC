@@ -17,6 +17,10 @@ public:
     {
         _pin = pin;
         _isInvers = isInvers;
+    }
+
+    void init(void)
+    {
         if (_isInvers == true)
         {
             pinMode(_pin, INPUT_PULLUP);
