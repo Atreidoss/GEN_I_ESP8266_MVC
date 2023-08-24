@@ -126,11 +126,15 @@ public:
         Menu(SubMenu(MenuItem(num++, "Ток U внутр.", 1)));
         Menu(SubMenu(MenuItem(num++, "Ток U внеш.", 1)));
         Menu(SubMenu(MenuItem(num++, "Измер. U", 1)));
+        Menu(SubMenu(MenuItem(num++, "Калибровки")));
         Menu(SubMenu(SubMenu(MenuItem(num++, "Кал. 4 мА", 1))));
         Menu(SubMenu(SubMenu(MenuItem(num++, "Кал. 20 мА", 1))));
         Menu(SubMenu(SubMenu(MenuItem(num++, "Кал. U пит.", 1))));
         Menu(SubMenu(SubMenu(MenuItem(num++, "Кал. U бат.", 1))));
         Menu(SubMenu(MenuItem(num++, "Настройки")));
+        Menu(SubMenu(SubMenu(MenuItem(num++, "Настройка 1", 1))));
+        Menu(SubMenu(SubMenu(MenuItem(num++, "Настройка 2", 1))));
+        Menu(SubMenu(SubMenu(MenuItem(num++, "Настройка 3", 1))));
         Menu(SubMenu(MenuItem(num++, "Версия ПО")));
         return num;
     }
