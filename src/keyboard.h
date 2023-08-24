@@ -11,7 +11,7 @@ class Keyboard
 
 public:
     Keyboard() : enter(PIN_BUTTON_ENTER, INVERSE_INPUT),
-                 up(PIN_BUTTON_UP, NO_INVERSE_INPUT),
+                 up(PIN_BUTTON_UP, INVERSE_INPUT),
                  down(PIN_BUTTON_DOWN, INVERSE_INPUT){
 
                  };
@@ -31,11 +31,11 @@ public:
     int getState(void)
     {
         int state = 0;
-        if (up.click() or up.step())
+        if (up.click())
         {
             state = BUTTON_UP_CODE;
         }
-        if (down.click() or down.step())
+        if (down.click())
         {
             state = BUTTON_DOWN_CODE;
         }
