@@ -11,7 +11,7 @@ class Keyboard
 
 public:
     Keyboard() : enter(PIN_BUTTON_ENTER, INVERSE_INPUT),
-                 up(PIN_BUTTON_UP, NO_INVERSE_INPUT),
+                 up(PIN_BUTTON_UP, INVERSE_INPUT),
                  down(PIN_BUTTON_DOWN, INVERSE_INPUT)
     {
         _buttonsTicker.attach_ms(BUTTON_POLL_MEASURMENT_MS,
@@ -33,7 +33,7 @@ public:
             state  = BUTTON_ENTER_CODE;
         }
         if (enter.held()){
-            state  = BUTTON_UP_CODE;
+            state  = BUTTON_ESCAPE_CODE;
         }
         return state;
     };

@@ -93,22 +93,21 @@ public:
     // Устанавливает для всех ячеек массива параметры indexParent и indexChild
     void setDepend(int menuSize)
     {
-        for (int i = menuSize; i > 0; i--)
+        for (int i = menuSize - 1; i > 0; i--)
         {
-            for (int j = i - 1; j >= 0; j--)
+            for (int j = i; j >= 0; j--)
             {
-                if (menuArray[j].levelDeep == PREV_LEVEL(menuArray[i].levelDeep))
+                int len = menuArray[j].lenght;
+                if (len)
                 {
-                    int len = menuArray[j].lenght;
-                    if (len > 0 && menuArray[j].indexChild == 0)
+                    if (menuArray[j].indexChild == 0)
                     {
-                        menuArray[j].indexChild = ADDR_CHILD(i, len);
                         for (int k = 0; k < len; k++)
                         {
                             menuArray[i - k].indexParent = j;
+                            menuArray[j].indexChild = i - k;
                         }
-                        // i = i - len;
-                        break;
+                        i = i - len;
                     }
                 }
             }
@@ -126,12 +125,13 @@ public:
         Menu(SubMenu(MenuItem(num++, "Ток U внутр.", 1)));
         Menu(SubMenu(MenuItem(num++, "Ток U внеш.", 1)));
         Menu(SubMenu(MenuItem(num++, "Измер. U", 1)));
+        Menu(SubMenu(MenuItem(num++, "Калибровка")));
         Menu(SubMenu(SubMenu(MenuItem(num++, "Кал. 4 мА", 1))));
         Menu(SubMenu(SubMenu(MenuItem(num++, "Кал. 20 мА", 1))));
         Menu(SubMenu(SubMenu(MenuItem(num++, "Кал. U пит.", 1))));
         Menu(SubMenu(SubMenu(MenuItem(num++, "Кал. U бат.", 1))));
-        Menu(SubMenu(MenuItem(num++, "Настройки")));
-        Menu(SubMenu(MenuItem(num++, "Версия ПО")));
+        Menu(SubMenu(MenuItem(num++, "Настройки", 1)));
+        Menu(SubMenu(MenuItem(num++, "Версия ПО", 1)));
         return num;
     }
 
