@@ -7,7 +7,6 @@ Controller controller(&model);
 
 void setup(void)
 {
-    view.init();
     web();
 }
 
