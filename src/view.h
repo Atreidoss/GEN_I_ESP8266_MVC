@@ -42,11 +42,22 @@ private:
     Model *_model;
     void draw(void)
     {
+        int x, y;
         _display.clearBuffer();
-        _display.setFont(u8g2_font_10x20_t_cyrillic);
-        _display.setCursor(0, 32);
-        _display.print(_model->getName().c_str());
-        //_display.print(_model->getPos());
+        _display.setFont(u8g2_font_helvR10_te);
+        x = 3;
+        y = 14;
+        _display.setCursor(x, y);
+        _display.print("Main menu");
+        y = 14 + 16;
+        _display.setCursor(x, y);
+        _display.print("Sec menu 1");
+        y = 14 + 32;
+        _display.setCursor(x, y);
+        _display.print("Sec menu 2");
+        y = 14 + 48;
+        _display.setCursor(x, y);
+        _display.print("Sec menu 3");
         _display.sendBuffer();
     }
     void drawMainMenu(void)
