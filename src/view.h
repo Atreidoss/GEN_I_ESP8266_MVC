@@ -10,6 +10,8 @@
 #define DISP_HEIGHT 64
 #define DISP_WIDTH 128
 
+#define VISIBLE_AREA_SIZE 3
+
 class OledView : public Observer
 {
 public:
@@ -42,32 +44,39 @@ private:
     Model *_model;
     void draw(void)
     {
-        int x, y;
         _display.clearBuffer();
-        _display.setFont(u8g2_font_helvR10_te);
-        x = 3;
-        y = 14;
-        _display.setCursor(x, y);
-        _display.print("Main menu");
-        y = 14 + 16;
-        _display.setCursor(x, y);
-        _display.print("Sec menu 1");
-        y = 14 + 32;
-        _display.setCursor(x, y);
-        _display.print("Sec menu 2");
-        y = 14 + 48;
-        _display.setCursor(x, y);
-        _display.print("Sec menu 3");
+        drawMenu();
         _display.sendBuffer();
     }
     void drawMainMenu(void)
     {
     }
+    void drawTop(void)
+    {
+        int pos_y = DISP_HEIGHT / 4 - 1;
+        _display.setCursor(5, pos_y - 2);
+        _display.print(_model->getNameParent());
+        _display.drawHLine(0, pos_y, 1);
+    }
+    void drawMenuItem(int pos, int posLocal, bool frame)
+    {
+        int pos_y = DISP_HEIGHT / 4;
+        _display.setCursor(5, (pos_y * (posLocal + 2)) - 2);
+        _display.print(_model->getName(pos));
+    }
     void drawMenu(void)
     {
-        _display.setFont(u8g2_font_10x20_t_cyrillic);
-        _display.setCursor(10, 63);
-        _display.drawHLine(0, 22, DISP_WIDTH);
+        int pos = _model->getPos();
+        int localPos = _model->getLocalPos();
+        _display.setFont(u8g2_font_helvR10_te);
+        drawTop();
+        for (int i = 0; i < VISIBLE_AREA_SIZE; i++)
+        {
+            if (i == localPos)
+            {
+                drawMenuItem(pos, i, false);
+            }
+        }
     }
     void drawParam(void)
     {
@@ -77,6 +86,7 @@ private:
         Wire.begin();
         _display.begin();
         _display.enableUTF8Print();
+        _model->initLocalSize(VISIBLE_AREA_SIZE);
     }
     void drawText(void)
     {

@@ -15,9 +15,6 @@ public:
 
     MenuItem menuArray[MENU_SIZE];
 
-    int menuNowPos = 1;
-    bool menuEdit = false;
-
     // Собственно записывает данные в массив, по умолчанию класс инициализируетрся со значениями
     // соответствующими корневому пункту
     void Menu(MenuItem mi)
@@ -121,17 +118,28 @@ public:
     int menuBuild(void)
     {
         int num = 0;
-        Menu(MenuItem(num++, "Осн. меню"));
-        Menu(SubMenu(MenuItem(num++, "Ток U внутр.", 1)));
-        Menu(SubMenu(MenuItem(num++, "Ток U внеш.", 1)));
-        Menu(SubMenu(MenuItem(num++, "Измер. U", 1)));
-        Menu(SubMenu(MenuItem(num++, "Калибровка")));
-        Menu(SubMenu(SubMenu(MenuItem(num++, "Кал. 4 мА", 1))));
-        Menu(SubMenu(SubMenu(MenuItem(num++, "Кал. 20 мА", 1))));
-        Menu(SubMenu(SubMenu(MenuItem(num++, "Кал. U пит.", 1))));
-        Menu(SubMenu(SubMenu(MenuItem(num++, "Кал. U бат.", 1))));
-        Menu(SubMenu(MenuItem(num++, "Настройки", 1)));
-        Menu(SubMenu(MenuItem(num++, "Версия ПО", 1)));
+        // Menu(MenuItem(num++, "Осн. меню"));
+        // Menu(SubMenu(MenuItem(num++, "Ток U внутр.", 1)));
+        // Menu(SubMenu(MenuItem(num++, "Ток U внеш.", 1)));
+        // Menu(SubMenu(MenuItem(num++, "Измер. U", 1)));
+        // Menu(SubMenu(MenuItem(num++, "Калибровка")));
+        // Menu(SubMenu(SubMenu(MenuItem(num++, "Кал. 4 мА", 1))));
+        // Menu(SubMenu(SubMenu(MenuItem(num++, "Кал. 20 мА", 1))));
+        // Menu(SubMenu(SubMenu(MenuItem(num++, "Кал. U пит.", 1))));
+        // Menu(SubMenu(SubMenu(MenuItem(num++, "Кал. U бат.", 1))));
+        // Menu(SubMenu(MenuItem(num++, "Настройки", 1)));
+        // Menu(SubMenu(MenuItem(num++, "Версия ПО", 1)));
+        Menu(MenuItem(num++, "Main menu"));
+        Menu(SubMenu(MenuItem(num++, "4-20mA Uin", 1)));
+        Menu(SubMenu(MenuItem(num++, "4-20mA Uout", 1)));
+        Menu(SubMenu(MenuItem(num++, "Uin 0-30V", 1)));
+        Menu(SubMenu(MenuItem(num++, "Calibration")));
+        Menu(SubMenu(SubMenu(MenuItem(num++, "CAL 4mA", 1))));
+        Menu(SubMenu(SubMenu(MenuItem(num++, "CAL 20mA", 1))));
+        Menu(SubMenu(SubMenu(MenuItem(num++, "CAL Uin", 1))));
+        Menu(SubMenu(SubMenu(MenuItem(num++, "CAl Ubat", 1))));
+        Menu(SubMenu(MenuItem(num++, "Settings", 1)));
+        Menu(SubMenu(MenuItem(num++, "Software Ver", 1)));
         return num;
     }
 

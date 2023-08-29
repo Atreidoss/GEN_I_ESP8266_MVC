@@ -22,46 +22,56 @@ public:
     // Возвращает имя текущего пункта меню/подменю
     String getName(void)
     {
-        return menuArray[menuNowPos].name;
+        return menuArray[_menuNowPos].name;
+    }
+
+    // Возвращает имя родительского меню для текущего пункта меню/подменю
+    String getNameParent(void)
+    {
+        return getName(getParent());
     }
 
     // Устанавливает значение (value) для текущего меню и обновляет эран(view)
     void setValue(int value)
     {
-        menuArray[menuNowPos].value = value;
+        menuArray[_menuNowPos].value = value;
         notifyUpdate();
     }
 
     // Устанавливает индекс текущего меню и обновляет эран(view)
     void setMenuPos(int menuPos)
     {
-        menuNowPos = menuPos;
+        _menuNowPos = menuPos;
         notifyUpdate();
     }
 
     // Устанавливает состояние меню: true - редактирование параметра, false - перемещение по меню
     void setEdit(bool edit)
     {
-        menuEdit = edit;
+        _menuEdit = edit;
         notifyUpdate();
     }
 
     // Возвращает состояние меню: true - редактирование параметра, false - перемещение по меню
     bool getEdit()
     {
-        return menuEdit;
+        return _menuEdit;
     }
 
     // Возвращает текущий индекс выбранного пункта меню/подменю
     int getPos(void)
     {
-        return menuNowPos;
+        return _menuNowPos;
+    }
+
+    int getLocalPos(void){
+        return _localPos;
     }
 
     // Возвращает длинну (кол-во пунктов) для текущего меню/подменю
     int getLenght(void)
     {
-        return menuArray[menuArray[menuNowPos].indexParent].lenght;
+        return menuArray[getParent()].lenght;
     }
 
     // Возвращает индекс последнего пункта для текущего меню/подменю
@@ -73,35 +83,44 @@ public:
     // Возвращает индекс первого пункта для текущего меню/подменю
     int getFirstIndex(void)
     {
-        return menuArray[menuArray[menuNowPos].indexParent].indexChild;
+        return menuArray[getParent()].indexChild;
     }
 
     // Возвращает индекс первого дочернего пункта для текущего меню/подменю
     int getChild(void)
     {
-        return menuArray[menuNowPos].indexChild;
+        return menuArray[_menuNowPos].indexChild;
     }
 
-    // Возвращает тип меню для текущего пунка меню (MenuNowPos)
+    int getParent(void)
+    {
+        return menuArray[_menuNowPos].indexParent;
+    }
+
+    // Возвращает тип меню для текущего пунка меню (_menuNowPos)
     int getType(void)
     {
-        return menuArray[menuNowPos].type;
+        return menuArray[_menuNowPos].type;
     }
 
-    // Возвращает значение Value для текущего пунка меню (MenuNowPos)
+    // Возвращает значение Value для текущего пунка меню (_menuNowPos)
     int getValue(void)
     {
-        return menuArray[menuNowPos].value;
+        return menuArray[_menuNowPos].value;
     }
 
     // Действия при нажатии кнопки "вверх"
     void moveUp(void)
     {
-        if (menuEdit == false)
+        if (_menuEdit == false)
         {
-            if (menuNowPos > getFirstIndex())
+            if (_menuNowPos > getFirstIndex())
             {
-                setMenuPos(menuNowPos - 1);
+                setMenuPos(_menuNowPos - 1);
+            }
+            if (_localPos > 0)
+            {
+                _localPos--;
             }
         }
         else
@@ -114,11 +133,15 @@ public:
     // Действия при нажатии кнопки "вниз"
     void moveDown(void)
     {
-        if (menuEdit == false)
+        if (_menuEdit == false)
         {
-            if (menuNowPos < getLastIndex())
+            if (_menuNowPos < getLastIndex())
             {
-                setMenuPos(menuNowPos + 1);
+                setMenuPos(_menuNowPos + 1);
+            }
+            if (_localPos < _localPosMax)
+            {
+                _localPos++;
             }
         }
         else
@@ -131,7 +154,7 @@ public:
     // Действия при нажатии кнопки "Ввод"
     void executeAction(void)
     {
-        if (menuEdit == false)
+        if (_menuEdit == false)
         {
             if (getType() == 0)
             {
@@ -139,6 +162,7 @@ public:
                 if (child != 0)
                 {
                     setMenuPos(child);
+                    _localPos = 0;
                 }
                 else
                 {
@@ -159,9 +183,10 @@ public:
     // Действия при нажатии кнопки "Эскейп"
     void cancelAction(void)
     {
-        if (menuEdit == false)
+        if (_menuEdit == false)
         {
-            setMenuPos(menuArray[menuNowPos].indexParent);
+            setMenuPos(getParent());
+            _localPos = 0;
         }
         else
         {
@@ -169,7 +194,17 @@ public:
         }
     }
 
+    void initLocalSize(int size)
+    {
+        _localPos = 0;
+        _localPosMax = size;
+    }
+
 private:
+    int _menuNowPos = 1;
+    bool _menuEdit = false;
+    int _localPos = 0;
+    int _localPosMax = 0;
 };
 
 #endif
