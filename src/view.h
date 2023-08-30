@@ -53,30 +53,40 @@ private:
     }
     void drawTop(void)
     {
-        int pos_y = DISP_HEIGHT / 4 - 1;
+        int pos_y = DISP_HEIGHT / 4;
         _display.setCursor(5, pos_y - 2);
         _display.print(_model->getNameParent());
-        _display.drawHLine(0, pos_y, 1);
+        _display.drawHLine(0, pos_y, DISP_WIDTH);
     }
-    void drawMenuItem(int pos, int posLocal, bool frame)
+    void drawMenuItem(int pos)
     {
-        int pos_y = DISP_HEIGHT / 4;
-        _display.setCursor(5, (pos_y * (posLocal + 2)) - 2);
+        int pos_y = (DISP_HEIGHT / 4) * (2 + pos) - 2;
+        _display.setCursor(5, pos_y);
         _display.print(_model->getName(pos));
     }
     void drawMenu(void)
     {
-        int pos = _model->getPos();
-        int localPos = _model->getLocalPos();
+        int firstPos = _model->getFirstLocalIndex();
+        //int localPos = _model->getLocalPos();
+        int currentPos = _model->getPos();
+
         _display.setFont(u8g2_font_helvR10_te);
         drawTop();
-        for (int i = 0; i < VISIBLE_AREA_SIZE; i++)
+        for (int i = 0; i < 3; i++)
         {
-            if (i == localPos)
+            drawMenuItem(firstPos + i);
+            if ((firstPos + i) == currentPos)
             {
-                drawMenuItem(pos, i, false);
+                drawCursor(i);
             }
         }
+    }
+
+    void drawCursor(int pos)
+    {
+        int height = DISP_HEIGHT / 4;
+        int pos_y = height * (2 + pos);
+        _display.drawFrame(0, pos_y, DISP_WIDTH, height);
     }
     void drawParam(void)
     {

@@ -42,7 +42,13 @@ public:
     void setMenuPos(int menuPos)
     {
         _menuNowPos = menuPos;
+        setLocalPos();
         notifyUpdate();
+    }
+
+    void setLocalPos(void)
+    {
+        _localFirstIndex = _menuNowPos - _localPos;
     }
 
     // Устанавливает состояние меню: true - редактирование параметра, false - перемещение по меню
@@ -64,7 +70,8 @@ public:
         return _menuNowPos;
     }
 
-    int getLocalPos(void){
+    int getLocalPos(void)
+    {
         return _localPos;
     }
 
@@ -86,6 +93,10 @@ public:
         return menuArray[getParent()].indexChild;
     }
 
+    int getFirstLocalIndex(void)
+    {
+        return _localFirstIndex;
+    }
     // Возвращает индекс первого дочернего пункта для текущего меню/подменю
     int getChild(void)
     {
@@ -116,11 +127,11 @@ public:
         {
             if (_menuNowPos > getFirstIndex())
             {
+                if (_localPos > 0)
+                {
+                    _localPos--;
+                }
                 setMenuPos(_menuNowPos - 1);
-            }
-            if (_localPos > 0)
-            {
-                _localPos--;
             }
         }
         else
@@ -137,11 +148,11 @@ public:
         {
             if (_menuNowPos < getLastIndex())
             {
+                if (_localPos < _localPosMax)
+                {
+                    _localPos++;
+                }
                 setMenuPos(_menuNowPos + 1);
-            }
-            if (_localPos < _localPosMax)
-            {
-                _localPos++;
             }
         }
         else
@@ -161,8 +172,8 @@ public:
                 int child = getChild();
                 if (child != 0)
                 {
-                    setMenuPos(child);
                     _localPos = 0;
+                    setMenuPos(child);
                 }
                 else
                 {
@@ -185,8 +196,8 @@ public:
     {
         if (_menuEdit == false)
         {
-            setMenuPos(getParent());
             _localPos = 0;
+            setMenuPos(getParent());
         }
         else
         {
@@ -197,6 +208,7 @@ public:
     void initLocalSize(int size)
     {
         _localPos = 0;
+        _localFirstIndex = 0;
         _localPosMax = size;
     }
 
@@ -205,6 +217,7 @@ private:
     bool _menuEdit = false;
     int _localPos = 0;
     int _localPosMax = 0;
+    int _localFirstIndex = 0;
 };
 
 #endif
