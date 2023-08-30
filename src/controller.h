@@ -13,7 +13,7 @@ public:
 
     {
         _model = model;
-        _model->setMenuPos(1);
+        _model->setMenuPos(0);
         _model->executeAction();
     }
 

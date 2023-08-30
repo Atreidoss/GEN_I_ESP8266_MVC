@@ -36,7 +36,23 @@ private:
     void draw(void)
     {
         _display.clearBuffer();
-        drawMenu();
+        drawTop();
+        if (_model->getEdit())
+        {
+            switch (_model->getType())
+            {
+            case 1:
+                drawParam();
+                break;
+            default:
+                drawError();
+                break;
+            }
+        }
+        else
+        {
+            drawMenu();
+        }
         _display.sendBuffer();
     }
     void drawMainMenu(void)
@@ -45,14 +61,9 @@ private:
     void drawTop(void)
     {
         int pos_y = DISP_HEIGHT / 4;
+        _display.setFont(u8g2_font_helvR10_te);
         _display.setCursor(5, pos_y - 2);
         _display.print(_model->getNameParent());
-        _display.print("  ");
-        _display.print(_model->getPos());
-        _display.print(".");
-        _display.print(_model->getFirstLocalIndex());
-        _display.print(".");
-        _display.print(_model->getLocalPos());
         _display.drawHLine(0, pos_y, DISP_WIDTH);
     }
     void drawMenuItem(int posLocal, int pos)
@@ -64,11 +75,8 @@ private:
     void drawMenu(void)
     {
         int firstPos = _model->getFirstLocalIndex();
-        // int localPos = _model->getLocalPos();
         int currentPos = _model->getPos();
-
         _display.setFont(u8g2_font_helvR10_te);
-        drawTop();
         for (int i = 0; i < 3; i++)
         {
             drawMenuItem(i, firstPos + i);
@@ -86,6 +94,11 @@ private:
     }
     void drawParam(void)
     {
+        int pos_y = (DISP_HEIGHT / 4) * 3;
+        int pos_x = (DISP_WIDTH / 2) - 5;
+        _display.setFont(u8g2_font_helvR10_te);
+        _display.setCursor(pos_x, pos_y);
+        _display.print(_model->getValue());
     }
     void displayInit(void)
     {
@@ -96,6 +109,12 @@ private:
     }
     void drawText(void)
     {
+    }
+    void drawError(void)
+    {
+        _display.setFont(u8g2_font_helvR10_te);
+        _display.setCursor(DISP_WIDTH - 10, DISP_HEIGHT / 2);
+        _display.print("ERROR");
     }
 };
 

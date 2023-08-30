@@ -197,7 +197,9 @@ public:
         if (_menuEdit == false)
         {
             _localPos = 0;
-            setMenuPos(getParent());
+            int parent = getParent();
+            if (parent > 0)
+                setMenuPos(parent);
         }
         else
         {
