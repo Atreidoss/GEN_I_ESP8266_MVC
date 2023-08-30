@@ -75,6 +75,11 @@ public:
         return _localPos;
     }
 
+    int getFirstLocalIndex(void)
+    {
+        return _localFirstIndex;
+    }
+
     // Возвращает длинну (кол-во пунктов) для текущего меню/подменю
     int getLenght(void)
     {
@@ -91,11 +96,6 @@ public:
     int getFirstIndex(void)
     {
         return menuArray[getParent()].indexChild;
-    }
-
-    int getFirstLocalIndex(void)
-    {
-        return _localFirstIndex;
     }
     // Возвращает индекс первого дочернего пункта для текущего меню/подменю
     int getChild(void)

@@ -10,7 +10,7 @@
 #define DISP_HEIGHT 64
 #define DISP_WIDTH 128
 
-#define VISIBLE_AREA_SIZE 3
+#define VISIBLE_AREA_SIZE 3 - 1
 
 class OledView : public Observer
 {
@@ -20,15 +20,6 @@ public:
         _model = model;
         _model->addObserver(this);
         displayInit();
-    }
-
-    void init(void)
-    {
-        _display.clearBuffer();
-        _display.setFont(u8g2_font_10x20_t_cyrillic);
-        _display.setCursor(0, 32);
-        _display.print("start programm");
-        _display.sendBuffer();
     }
 
     // Если режим редактирования значения - тогда выводим навание пункта текущего
@@ -56,36 +47,41 @@ private:
         int pos_y = DISP_HEIGHT / 4;
         _display.setCursor(5, pos_y - 2);
         _display.print(_model->getNameParent());
+        _display.print("  ");
+        _display.print(_model->getPos());
+        _display.print(".");
+        _display.print(_model->getFirstLocalIndex());
+        _display.print(".");
+        _display.print(_model->getLocalPos());
         _display.drawHLine(0, pos_y, DISP_WIDTH);
     }
-    void drawMenuItem(int pos)
+    void drawMenuItem(int posLocal, int pos)
     {
-        int pos_y = (DISP_HEIGHT / 4) * (2 + pos) - 2;
+        int pos_y = (DISP_HEIGHT / 4) * (2 + posLocal) - 2;
         _display.setCursor(5, pos_y);
         _display.print(_model->getName(pos));
     }
     void drawMenu(void)
     {
         int firstPos = _model->getFirstLocalIndex();
-        //int localPos = _model->getLocalPos();
+        // int localPos = _model->getLocalPos();
         int currentPos = _model->getPos();
 
         _display.setFont(u8g2_font_helvR10_te);
         drawTop();
         for (int i = 0; i < 3; i++)
         {
-            drawMenuItem(firstPos + i);
+            drawMenuItem(i, firstPos + i);
             if ((firstPos + i) == currentPos)
             {
                 drawCursor(i);
             }
         }
     }
-
     void drawCursor(int pos)
     {
         int height = DISP_HEIGHT / 4;
-        int pos_y = height * (2 + pos);
+        int pos_y = height * (1 + pos);
         _display.drawFrame(0, pos_y, DISP_WIDTH, height);
     }
     void drawParam(void)

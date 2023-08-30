@@ -14,6 +14,7 @@ public:
     {
         _model = model;
         _model->setMenuPos(1);
+        _model->executeAction();
     }
 
     // Опрос кнопок, отправка соответствующих команд в модель.
@@ -24,8 +25,7 @@ public:
 
     void init(void)
     {
-        
-    }
+        }
 
 private:
     Model *_model;
