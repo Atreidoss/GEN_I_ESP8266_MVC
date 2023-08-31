@@ -11,7 +11,7 @@
 class Button : public VButton
 {
 public:
-    Button();
+    Button(){}
 
     Button(uint8_t pin, bool isInvers)
     {

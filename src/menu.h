@@ -138,7 +138,9 @@ public:
         Menu(SubMenu(SubMenu(MenuItem(num++, "CAL 20mA", 1))));
         Menu(SubMenu(SubMenu(MenuItem(num++, "CAL Uin", 1))));
         Menu(SubMenu(SubMenu(MenuItem(num++, "CAl Ubat", 1))));
-        Menu(SubMenu(MenuItem(num++, "Settings", 1)));
+        Menu(SubMenu(MenuItem(num++, "Settings", 0)));
+        Menu(SubMenu(SubMenu(MenuItem(num++, "CAL 4mA", 1))));
+        Menu(SubMenu(SubMenu(MenuItem(num++, "CAL 20mA", 1))));
         Menu(SubMenu(MenuItem(num++, "Software Ver", 1)));
         return num;
     }

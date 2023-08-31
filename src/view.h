@@ -35,9 +35,10 @@ private:
     Model *_model;
     void draw(void)
     {
+        bool edit = _model->getEdit();
         _display.clearBuffer();
-        drawTop();
-        if (_model->getEdit())
+        drawTop(edit);
+        if (edit)
         {
             switch (_model->getType())
             {
@@ -58,13 +59,21 @@ private:
     void drawMainMenu(void)
     {
     }
-    void drawTop(void)
+    void drawTop(bool isEdit)
     {
         int pos_y = DISP_HEIGHT / 4;
         _display.setFont(u8g2_font_helvR10_te);
-        _display.setCursor(5, pos_y - 2);
-        _display.print(_model->getNameParent());
-        _display.drawHLine(0, pos_y, DISP_WIDTH);
+        _display.setCursor(5, pos_y - 4);
+        if (isEdit)
+        {
+            _display.print(_model->getName());
+        }
+        else
+        {
+            _display.print(_model->getNameParent());
+        }
+        _display.drawHLine(0, pos_y - 2, DISP_WIDTH);
+        drawBat();
     }
     void drawMenuItem(int posLocal, int pos)
     {
@@ -90,7 +99,7 @@ private:
     {
         int height = DISP_HEIGHT / 4;
         int pos_y = height * (1 + pos);
-        _display.drawFrame(0, pos_y, DISP_WIDTH, height);
+        _display.drawRFrame(0, pos_y + 1, DISP_WIDTH, height - 1, 3);
     }
     void drawParam(void)
     {
@@ -109,6 +118,14 @@ private:
     }
     void drawText(void)
     {
+    }
+
+    void drawBat(void)
+    {
+       // _display.drawRFrame(DISP_WIDTH - 20, 2, 20, 10, 2);
+        _display.setFont(u8g2_font_5x7_tn );
+        _display.setCursor(DISP_WIDTH - 20, 10);
+        _display.print("100%");
     }
     void drawError(void)
     {
