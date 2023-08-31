@@ -61,12 +61,19 @@ public:
     void setBatValue(float batValue)
     {
         _batValue = batValue;
+        _batPercent = ((_batValue - 3.00) / 1.20) * 100;
+        _batPercent = constrain(_batPercent, 0.00, 100.00);
         notifyUpdate();
     }
 
     float getBatValue(void)
     {
         return _batValue;
+    }
+
+    float getBatPercent(void)
+    {
+        return _batPercent;
     }
     // Возвращает состояние меню: true - редактирование параметра, false - перемещение по меню
     bool getEdit()
@@ -231,6 +238,7 @@ private:
     int _localPosMax = 0;
     int _localFirstIndex = 0;
     float _batValue = 0;
+    float _batPercent = 0;
 };
 
 #endif

@@ -122,10 +122,19 @@ private:
 
     void drawBat(void)
     {
-       // _display.drawRFrame(DISP_WIDTH - 20, 2, 20, 10, 2);
-        _display.setFont(u8g2_font_5x7_tn );
+        int percent = _model->getBatPercent();
+        _display.drawRFrame(DISP_WIDTH - 20, 2, 20, 10, 2);
+        _display.setFont(u8g2_font_5x7_tn);
         _display.setCursor(DISP_WIDTH - 20, 10);
-        _display.print(_model->getBatValue());
+        if (percent / 100 == 0)
+        {
+            _display.print(" ");
+        }
+        if (percent / 10 == 0)
+        {
+            _display.print(" ");
+        }
+        _display.print(percent);
     }
     void drawError(void)
     {

@@ -33,6 +33,7 @@ private:
     {
         _ADS.begin(addres);
         _ADS.setGain(GAIN_TWOTHIRDS); // GAIN_ONE = ADS1X15_REG_CONFIG_PGA_4_096V
+        _ADS.setDataRate(RATE_ADS1115_475SPS);
     }
     int16_t adcRead(uint8_t channel)
     {
