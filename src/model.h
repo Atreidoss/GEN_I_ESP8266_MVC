@@ -58,6 +58,16 @@ public:
         notifyUpdate();
     }
 
+    void setBatValue(float batValue)
+    {
+        _batValue = batValue;
+        notifyUpdate();
+    }
+
+    float getBatValue(void)
+    {
+        return _batValue;
+    }
     // Возвращает состояние меню: true - редактирование параметра, false - перемещение по меню
     bool getEdit()
     {
@@ -220,6 +230,7 @@ private:
     int _localPos = 0;
     int _localPosMax = 0;
     int _localFirstIndex = 0;
+    float _batValue = 0;
 };
 
 #endif

@@ -5,6 +5,7 @@
 #include "model.h"
 #include "view.h"
 #include "keyboard.h"
+#include "MCU_hardware/adc.h"
 
 class Controller
 {
@@ -21,15 +22,27 @@ public:
     void loop()
     {
         buttonsHandle();
+        measureHandle();
     }
 
     void init(void)
     {
-        }
+    }
 
 private:
     Model *_model;
     Keyboard _keyboard;
+    Measure _adc;
+
+    void measureHandle(void)
+    {
+        static unsigned long curmil = 0;
+        if (millis() - curmil > POOL_MEASURMENT_BAT_MS)
+        {
+            _model->setBatValue(_adc.getValue(ADC_BAT, MEASURMENT_BAT_COUNT));
+            curmil = millis();
+        }
+    }
 
     void buttonsHandle(void)
     {
