@@ -6,6 +6,7 @@
 #include "view.h"
 #include "keyboard.h"
 #include "MCU_hardware/adc.h"
+#include "MCU_hardware/ampereGenerator.h"
 
 class Controller
 {
@@ -33,6 +34,7 @@ private:
     Model *_model;
     Keyboard _keyboard;
     Measure _adc;
+    output _out;
 
     void measureHandle(void)
     {
