@@ -136,6 +136,11 @@ public:
     {
         return menuArray[_menuNowPos].value;
     }
+    
+    int getAmpere(void)
+    {
+       return _ampere;
+    }
 
     // Действия при нажатии кнопки "вверх"
     void moveUp(void)
@@ -239,6 +244,7 @@ private:
     int _localFirstIndex = 0;
     float _batValue = 0;
     float _batPercent = 0;
+    int _ampere = 0;
 };
 
 #endif

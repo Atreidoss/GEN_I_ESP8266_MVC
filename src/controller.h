@@ -3,7 +3,6 @@
 
 #include "settings.h"
 #include "model.h"
-#include "view.h"
 #include "keyboard.h"
 #include "MCU_hardware/adc.h"
 #include "MCU_hardware/ampere.h"
@@ -26,10 +25,6 @@ public:
         measureHandle();
     }
 
-    void init(void)
-    {
-    }
-
 private:
     Model *_model;
     Keyboard _keyboard;
@@ -46,35 +41,75 @@ private:
         }
     }
 
+    void update(bool isEditChanged)
+    {
+        int type = _model->getType();
+        bool edit = _model->getEdit();
+
+        switch (type)
+        {
+        case 2:
+            if (isEditChanged)
+            {
+                _out.switcher(AMPERE_PS_ON, edit);
+            }
+            else
+            {
+                _out.setValue(_model->getValue());
+            }
+        case 3:
+            if (isEditChanged)
+            {
+                _out.switcher(AMPERE_PS_OFF, edit);
+            }
+            else
+            {
+                _out.setValue(_model->getValue());
+            }
+        }
+    }
+
     void buttonsHandle(void)
     {
         int input = _keyboard.getState();
-        switch (input)
+        if (input)
         {
-        case BUTTON_UP_CODE: // Стрелка вверх
-        {
-            _model->moveUp();
-            break;
-        }
-        case BUTTON_DOWN_CODE: // Стрелка вниз
-        {
-            _model->moveDown();
-            break;
-        }
-        case BUTTON_ENTER_CODE: // Ввод
-        {
-            _model->executeAction();
-            break;
-        }
-        case BUTTON_ESCAPE_CODE: // Эскейп
-        {
-            _model->cancelAction();
-            break;
-        }
-        case BUTTON_BACKSPACE_CODE: // Бэкспейс
-        {
-            break;
-        }
+            bool edit = _model->getEdit();
+            switch (input)
+            {
+            case BUTTON_UP_CODE: // Стрелка вверх
+            {
+                _model->moveUp();
+                break;
+            }
+            case BUTTON_DOWN_CODE: // Стрелка вниз
+            {
+                _model->moveDown();
+                break;
+            }
+            case BUTTON_ENTER_CODE: // Ввод
+            {
+                _model->executeAction();
+                break;
+            }
+            case BUTTON_ESCAPE_CODE: // Эскейп
+            {
+                _model->cancelAction();
+                break;
+            }
+            case BUTTON_BACKSPACE_CODE: // Бэкспейс
+            {
+                break;
+            }
+            }
+            if (edit != _model->getEdit())
+            {
+                update(true);
+            }
+            else
+            {
+                update(false);
+            }
         }
     }
 };

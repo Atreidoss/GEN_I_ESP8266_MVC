@@ -130,17 +130,17 @@ public:
         // Menu(SubMenu(MenuItem(num++, "Настройки", 1)));
         // Menu(SubMenu(MenuItem(num++, "Версия ПО", 1)));
         Menu(MenuItem(num++, "Main menu"));
-        Menu(SubMenu(MenuItem(num++, "4-20mA Uin", 1)));
-        Menu(SubMenu(MenuItem(num++, "4-20mA Uout", 1)));
+        Menu(SubMenu(MenuItem(num++, "4-20mA Uin", 2)));
+        Menu(SubMenu(MenuItem(num++, "4-20mA Uout", 3)));
         Menu(SubMenu(MenuItem(num++, "Uin 0-30V", 1)));
         Menu(SubMenu(MenuItem(num++, "Calibration")));
         Menu(SubMenu(SubMenu(MenuItem(num++, "CAL 4mA", 1))));
         Menu(SubMenu(SubMenu(MenuItem(num++, "CAL 20mA", 1))));
         Menu(SubMenu(SubMenu(MenuItem(num++, "CAL Uin", 1))));
         Menu(SubMenu(SubMenu(MenuItem(num++, "CAl Ubat", 1))));
-        Menu(SubMenu(MenuItem(num++, "Settings", 0)));
-        Menu(SubMenu(SubMenu(MenuItem(num++, "CAL 4mA", 1))));
-        Menu(SubMenu(SubMenu(MenuItem(num++, "CAL 20mA", 1))));
+        Menu(SubMenu(MenuItem(num++, "Settings")));
+        Menu(SubMenu(SubMenu(MenuItem(num++, "Set 1", 1))));
+        Menu(SubMenu(SubMenu(MenuItem(num++, "Set 2", 1))));
         Menu(SubMenu(MenuItem(num++, "Software Ver", 1)));
         return num;
     }
