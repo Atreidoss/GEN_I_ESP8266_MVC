@@ -6,7 +6,7 @@
 #include "view.h"
 #include "keyboard.h"
 #include "MCU_hardware/adc.h"
-#include "MCU_hardware/ampereGenerator.h"
+#include "MCU_hardware/ampere.h"
 
 class Controller
 {

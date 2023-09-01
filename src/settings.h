@@ -7,8 +7,11 @@
 #define PIN_BUTTON_ENTER 13        // Номер ножки контроллера для кнопки Ввод
 #define PIN_BUTTON_UP 2            // Номер ножки контроллера для кнопки Вверх
 #define PIN_BUTTON_DOWN 12         // Номер ножки контроллера для кнопки Вниз
-#define PIN_PWM 14                 // Номер ножки ШИМ генерации 4-20 мА
+#define PIN_PWM_AMPERE 14                 // Номер ножки ШИМ генерации 4-20 мА
 #define PIN_ITERNAL_POWER_SUPPLY 3 // Номер ножки подачи напряжения от внутреннего источника питания
+
+#define PWM_RESOLUTION 10          // Разрешение ШИМ, бит
+#define PWM_FREQUENCY 1000         // Частота ШИМ, Гц
 
 #define BUTTON_POLL_MEASURMENT_MS 2 // Период опроса кнопок в прерывании, мс
 
