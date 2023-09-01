@@ -6,11 +6,11 @@
 #include <ESP8266WebServer.h>
 #include <ESP8266mDNS.h>
 #include <ESP8266HTTPUpdateServer.h>
+#include "settings.h"
 
-#ifndef STASSID
-//#define STASSID "Atreidos"
-#define STASSID "mark2"
-#define STAPSK  "mark2mark2" 
+#ifndef SETTINGS_WIFI
+#define STASSID "mark2"     // Имя сети WiFi
+#define STAPSK "mark2mark2" // Пароль сети WiFi
 #endif
 
 extern const char* host;

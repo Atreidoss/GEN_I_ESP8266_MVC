@@ -5,6 +5,29 @@
 #include "settings.h"
 #include <Adafruit_ADS1X15.h>
 
+#ifndef SETTINGS_ADC
+#define ADC_ADDR 0x48 // Адресс по шине i2c
+// CH0 - I value, делитель канала 0 (в кОм), измерение тока
+#define ADC_I 0
+#define DIV_CH0_M 10
+#define DIV_CH0_P 100
+// CH1 - U value, делитель канала 1 (в кОм), измерение внешнего напряжения
+#define ADC_U 1
+#define DIV_CH1_M 10
+#define DIV_CH1_P 10
+// CH2 - Bat value, делитель канала 2 (в кОм), измерение напряжения аккумулятора
+#define ADC_BAT 2
+#define DIV_CH2_M 10
+#define DIV_CH2_P 10
+// CH3 - value, делитель канала 3 (в кОм), измерение напряжения 
+#define ADC_CH3 3    // reserved
+#define DIV_CH3_M 10 // reserved
+#define DIV_CH3_P 10 // reserved
+
+#define POOL_MEASURMENT_BAT_MS 500 // Период измерения напряжения батареи, мс
+#define MEASURMENT_BAT_COUNT 15    // Количество измерений напряжения батареи, мс
+#endif
+
 class Measure
 {
 public:
