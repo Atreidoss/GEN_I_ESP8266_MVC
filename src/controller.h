@@ -15,7 +15,7 @@ public:
     {
         _model = model;
         _model->setMenuPos(0);
-        _model->executeAction();
+        _model->execute(BUTTON_ENTER_CODE);
     }
 
     // Опрос кнопок, отправка соответствующих команд в модель.
@@ -74,42 +74,7 @@ private:
         int input = _keyboard.getState();
         if (input)
         {
-            bool edit = _model->getEdit();
-            switch (input)
-            {
-            case BUTTON_UP_CODE: // Стрелка вверх
-            {
-                _model->moveUp();
-                break;
-            }
-            case BUTTON_DOWN_CODE: // Стрелка вниз
-            {
-                _model->moveDown();
-                break;
-            }
-            case BUTTON_ENTER_CODE: // Ввод
-            {
-                _model->executeAction();
-                break;
-            }
-            case BUTTON_ESCAPE_CODE: // Эскейп
-            {
-                _model->cancelAction();
-                break;
-            }
-            case BUTTON_BACKSPACE_CODE: // Бэкспейс
-            {
-                break;
-            }
-            }
-            if (edit != _model->getEdit())
-            {
-                update(true);
-            }
-            else
-            {
-                update(false);
-            }
+            _model->execute(input);
         }
     }
 };

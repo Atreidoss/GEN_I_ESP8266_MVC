@@ -136,11 +136,59 @@ public:
     {
         return menuArray[_menuNowPos].value;
     }
-    
+
     int getAmpere(void)
     {
-       return _ampere;
+        return _ampere;
     }
+
+    void execute(int input)
+    {
+        switch (input)
+        {
+        case BUTTON_UP_CODE: // Стрелка вверх
+        {
+            moveUp();
+            break;
+        }
+        case BUTTON_DOWN_CODE: // Стрелка вниз
+        {
+            moveDown();
+            break;
+        }
+        case BUTTON_ENTER_CODE: // Ввод
+        {
+            executeAction();
+            break;
+        }
+        case BUTTON_ESCAPE_CODE: // Эскейп
+        {
+            cancelAction();
+            break;
+        }
+        case BUTTON_BACKSPACE_CODE: // Бэкспейс
+        {
+            break;
+        }
+        }
+    }
+
+    void initLocalSize(int size)
+    {
+        _localPos = 0;
+        _localFirstIndex = 0;
+        _localPosMax = size;
+    }
+
+private:
+    int _menuNowPos = 1;
+    bool _menuEdit = false;
+    int _localPos = 0;
+    int _localPosMax = 0;
+    int _localFirstIndex = 0;
+    float _batValue = 0;
+    float _batPercent = 0;
+    int _ampere = 0;
 
     // Действия при нажатии кнопки "вверх"
     void moveUp(void)
@@ -228,23 +276,6 @@ public:
             setEdit(false);
         }
     }
-
-    void initLocalSize(int size)
-    {
-        _localPos = 0;
-        _localFirstIndex = 0;
-        _localPosMax = size;
-    }
-
-private:
-    int _menuNowPos = 1;
-    bool _menuEdit = false;
-    int _localPos = 0;
-    int _localPosMax = 0;
-    int _localFirstIndex = 0;
-    float _batValue = 0;
-    float _batPercent = 0;
-    int _ampere = 0;
 };
 
 #endif
