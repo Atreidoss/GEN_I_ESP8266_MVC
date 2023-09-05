@@ -39,8 +39,9 @@ public:
 
     void setValue(int val)
     {
-        int tempVal = map(val, 40, 200, 58, 743);
-        setPwm(tempVal);
+        // int tempVal = map(val, 40, 200, 58, 743);
+        // setPwm(tempVal);
+        setPwm((val * 3) / 2);
     }
 
 private:
@@ -91,7 +92,6 @@ private:
 
     void init(void)
     {
-
         pinMode(PIN_ITERNAL_POWER_SUPPLY, OUTPUT);
         pinMode(PIN_PWM_AMPERE, OUTPUT);
         digitalWrite(PIN_ITERNAL_POWER_SUPPLY, LOW);

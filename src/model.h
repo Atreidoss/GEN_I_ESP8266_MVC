@@ -11,8 +11,9 @@ class Model : public Observable, private ExecuteMenu
 public:
     Model()
     {
-        int menuSize = menuRebuild();
-        _memory.init(sizeof(menuSize) * menuSize);
+        menuRebuild();
+        //int menuSize = menuRebuild();
+        //_memory.init(sizeof(menuSize) * menuSize);
     }
 
     // Возвращает имя пункта меню/подменю для указанного индекса
@@ -205,7 +206,7 @@ private:
     float _batPercent = 0;
     int _ampere = 0;
 
-    Eeprom _memory;
+    //Eeprom _memory;
 
     // Действия при нажатии кнопки "вверх"
     void moveUp(void)

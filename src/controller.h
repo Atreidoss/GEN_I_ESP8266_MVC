@@ -41,7 +41,7 @@ private:
         }
     }
 
-    void update(bool isEditChanged)
+    void updateState(bool isEditChanged)
     {
         int type = _model->getType();
         bool edit = _model->getEdit();
@@ -76,7 +76,7 @@ private:
         int input = _keyboard.getState();
         if (input)
         {
-            update(_model->execute(input));
+            updateState(_model->execute(input));
         }
     }
 };
