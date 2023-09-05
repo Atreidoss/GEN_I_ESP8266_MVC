@@ -121,9 +121,9 @@ private:
         int pos_x = (DISP_WIDTH / 2) - 5;
         _display.setFont(u8g2_font_helvR10_te);
         _display.setCursor(pos_x, pos_y);
-        _display.print(_model->getAmpere()/10);
+        _display.print(_model->getValue()/10);
         _display.print(".");
-        _display.print(_model->getAmpere()%10);
+        _display.print(_model->getValue()%10);
     }
     void displayInit(void)
     {

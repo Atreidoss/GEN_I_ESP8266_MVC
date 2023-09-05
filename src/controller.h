@@ -52,6 +52,7 @@ private:
             if (isEditChanged)
             {
                 _out.switcher(AMPERE_PS_ON, edit);
+                _model->setValue(40);
             }
             else
             {
@@ -61,6 +62,7 @@ private:
             if (isEditChanged)
             {
                 _out.switcher(AMPERE_PS_OFF, edit);
+                _model->setValue(40);
             }
             else
             {
