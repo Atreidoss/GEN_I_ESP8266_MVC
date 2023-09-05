@@ -151,41 +151,30 @@ public:
         switch (input)
         {
         case BUTTON_UP_CODE: // Стрелка вверх
-        {
             moveUp();
             break;
-        }
         case BUTTON_DOWN_CODE: // Стрелка вниз
-        {
             moveDown();
             break;
-        }
         case BUTTON_ENTER_CODE: // Ввод
-        {
             executeAction();
             break;
-        }
         case BUTTON_ESCAPE_CODE: // Эскейп
-        {
             cancelAction();
             break;
-        }
         case BUTTON_BACKSPACE_CODE: // Бэкспейс
-        {
+            break;
+        default:
+            notifyUpdate();
             break;
         }
-        default:
+        if (prevEdit == _menuEdit)
         {
-            notifyUpdate();
-        }
-        }
-        if (prevEdit != _menuEdit)
-        {
-            return true;
+            return false;
         }
         else
         {
-            return false;
+            return true;
         }
     }
 

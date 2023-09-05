@@ -39,9 +39,8 @@ public:
 
     void setValue(int val)
     {
-        // int tempVal = map(val, 40, 200, 58, 743);
-        // setPwm(tempVal);
-        setPwm((val * 3) / 2);
+        int tempVal = map(val, 40, 200, 58, 743);
+        setPwm(tempVal);
     }
 
 private:
@@ -57,7 +56,6 @@ private:
             setPowerOn(false);
             setPwm(0);
             break;
-
         default:
             break;
         }

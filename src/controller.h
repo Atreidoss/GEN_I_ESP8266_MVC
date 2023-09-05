@@ -58,6 +58,7 @@ private:
             {
                 _out.setValue(_model->getValue());
             }
+            break;
         case 3:
             if (isEditChanged)
             {
@@ -68,6 +69,7 @@ private:
             {
                 _out.setValue(_model->getValue());
             }
+            break;
         }
     }
 
