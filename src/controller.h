@@ -74,7 +74,7 @@ private:
         int input = _keyboard.getState();
         if (input)
         {
-            _model->execute(input);
+            update(_model->execute(input));
         }
     }
 };

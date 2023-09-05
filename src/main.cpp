@@ -1,4 +1,5 @@
 #include "controller.h"
+#include "view.h"
 #include "MCU_hardware/web.h"
 
 Model model;

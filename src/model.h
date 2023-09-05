@@ -3,14 +3,16 @@
 
 #include <Arduino.h>
 #include "observable.h"
-#include "menu.h"
+#include "Menu/menu.h"
+#include "MCU_hardware/eeprom.h"
 
 class Model : public Observable, private ExecuteMenu
 {
 public:
     Model()
     {
-        menuRebuild();
+        int menuSize = menuRebuild();
+        _memory.init(sizeof(menuSize) * menuSize);
     }
 
     // Возвращает имя пункта меню/подменю для указанного индекса
@@ -142,8 +144,9 @@ public:
         return _ampere;
     }
 
-    void execute(int input)
+    bool execute(int input)
     {
+        bool prevEdit = _menuEdit;
         switch (input)
         {
         case BUTTON_UP_CODE: // Стрелка вверх
@@ -170,6 +173,18 @@ public:
         {
             break;
         }
+        default:
+        {
+            notifyUpdate();
+        }
+        }
+        if (prevEdit != _menuEdit)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 
@@ -189,6 +204,8 @@ private:
     float _batValue = 0;
     float _batPercent = 0;
     int _ampere = 0;
+
+    Eeprom _memory;
 
     // Действия при нажатии кнопки "вверх"
     void moveUp(void)
