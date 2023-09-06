@@ -3,7 +3,7 @@
 
 #include "settings.h"
 #include <Arduino.h>
-#include "VirtualButton.h"
+#include "VirtualButton.h"  // попробовать заменить в будущем на Gyver EncBtn
 
 #define INVERSE_INPUT true
 #define NO_INVERSE_INPUT false

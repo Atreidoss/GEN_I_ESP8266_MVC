@@ -1,6 +1,10 @@
 #ifndef settings_h
 #define settings_h
 
+#define SOFTWARE_VERSION_NUMBER  "1.1"
+#define SOFTWARE_VERSION_DATE    "06.06.2023"
+#define SOFTWARE_OWNER           "Shuvalov Vladimir"
+
 //---------------------------Настройки кнопок управления-----------------------------------------------------------------
 #define SETTINGS_BUTTONS_POOL
 #define EB_DEB 5                   // Задержка обработки дребезга, мс
@@ -21,11 +25,12 @@
 
 //---------------------------Настройки кнопок управления-----------------------------------------------------------------
 #define SETTINGS_BUTTON_CODE
-#define BUTTON_UP_CODE 72       // Код кнопки Вверх
-#define BUTTON_DOWN_CODE 80     // Код кнопки Вниз
-#define BUTTON_ENTER_CODE 13    // Код кнопки Ввод
-#define BUTTON_ESCAPE_CODE 27   // Код кнопки Выход
-#define BUTTON_BACKSPACE_CODE 8 // Код кнопки Назад/Стереть
+#define BUTTON_UP_CODE 72         // Код кнопки Вверх
+#define BUTTON_DOWN_CODE 80       // Код кнопки Вниз
+#define BUTTON_ENTER_CODE 13      // Код кнопки Ввод
+#define BUTTON_ESCAPE_CODE 27     // Код кнопки Выход
+#define BUTTON_BACKSPACE_CODE 8   // Код кнопки Назад/Стереть
+#define BUTTON_NON_JUST_UPDATE 99 // Код чисто для запуска обновления экрана
 
 //------------------------Настройки WIFI ---------------------------------------------------------------------------------
 #define SETTINGS_WIFI

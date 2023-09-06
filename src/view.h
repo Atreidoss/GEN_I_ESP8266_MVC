@@ -51,6 +51,12 @@ private:
             case 3:
                 drawAmper();
                 break;
+            case 4:
+                drawWifi();
+                break;
+            case 5:
+                drawSoftVer();
+                break;
             default:
                 drawError();
                 break;
@@ -121,9 +127,9 @@ private:
         int pos_x = (DISP_WIDTH / 2) - 5;
         _display.setFont(u8g2_font_helvR10_te);
         _display.setCursor(pos_x, pos_y);
-        _display.print(_model->getValue()/10);
+        _display.print(_model->getValue() / 10);
         _display.print(".");
-        _display.print(_model->getValue()%10);
+        _display.print(_model->getValue() % 10);
     }
     void displayInit(void)
     {
@@ -152,6 +158,27 @@ private:
         }
         _display.print(percent);
     }
+
+    void drawSoftVer(void)
+    {
+        int pos_y = (DISP_HEIGHT / 4) * 2 + 3;
+        int pos_x = 2;
+        _display.setFont(u8g2_font_helvR10_te);
+        _display.setCursor(pos_x, pos_y);
+        _display.print("4-20 mA generator. Version : ");
+        _display.print(SOFTWARE_VERSION_NUMBER);
+        _display.print(" , ");
+        _display.print(SOFTWARE_VERSION_DATE);
+        _display.print(" Created by ");
+        _display.print(SOFTWARE_OWNER);
+        _display.print(".");
+
+    }
+
+    void drawWifi(void)
+    {
+    }
+
     void drawError(void)
     {
         _display.setFont(u8g2_font_helvR10_te);

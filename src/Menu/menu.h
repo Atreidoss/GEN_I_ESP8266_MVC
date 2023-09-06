@@ -141,7 +141,8 @@ public:
         Menu(SubMenu(MenuItem(num++, "Settings")));
         Menu(SubMenu(SubMenu(MenuItem(num++, "Set 1", 1))));
         Menu(SubMenu(SubMenu(MenuItem(num++, "Set 2", 1))));
-        Menu(SubMenu(MenuItem(num++, "Software Ver", 1)));
+        Menu(SubMenu(MenuItem(num++, "Software Ver", 4)));
+        Menu(SubMenu(MenuItem(num++, "Software Ver", 5)));
         return num;
     }
 
