@@ -161,22 +161,25 @@ private:
 
     void drawSoftVer(void)
     {
-        int pos_y = (DISP_HEIGHT / 4) * 2 + 3;
-        int pos_x = 2;
+        int pos_y = (DISP_HEIGHT / 4) * 2 - 2;
+        int pos_x = 0;
         _display.setFont(u8g2_font_helvR10_te);
         _display.setCursor(pos_x, pos_y);
-        _display.print("4-20 mA generator. Version : ");
+        _display.print("Version: ");
         _display.print(SOFTWARE_VERSION_NUMBER);
-        _display.print(" , ");
+        pos_y += 16;
+        _display.setCursor(pos_x, pos_y);
+        _display.print("Date: ");
         _display.print(SOFTWARE_VERSION_DATE);
-        _display.print(" Created by ");
+        pos_y += 16;
+        _display.setCursor(pos_x, pos_y);
+        _display.print("by ");
         _display.print(SOFTWARE_OWNER);
-        _display.print(".");
-
     }
 
     void drawWifi(void)
     {
+        _display.print("ERROR");
     }
 
     void drawError(void)

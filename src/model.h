@@ -140,11 +140,6 @@ public:
         return menuArray[_menuNowPos].value;
     }
 
-    int getAmpere(void)
-    {
-        return _ampere;
-    }
-
     bool execute(int input)
     {
         bool prevEdit = _menuEdit;
@@ -193,7 +188,6 @@ private:
     int _localFirstIndex = 0;
     float _batValue = 0;
     float _batPercent = 0;
-    int _ampere = 0;
 
     //Eeprom _memory;
 

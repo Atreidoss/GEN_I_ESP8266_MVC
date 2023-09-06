@@ -2,7 +2,7 @@
 #define settings_h
 
 #define SOFTWARE_VERSION_NUMBER  "1.1"
-#define SOFTWARE_VERSION_DATE    "06.06.2023"
+#define SOFTWARE_VERSION_DATE    "06.09.23"
 #define SOFTWARE_OWNER           "Shuvalov Vladimir"
 
 //---------------------------Настройки кнопок управления-----------------------------------------------------------------

@@ -60,6 +60,16 @@ private:
                 _out.setValue(_model->getValue());
             }
             break;
+        case 4:
+            if (isEditChanged)
+            {
+            }
+            else
+            {
+            }
+            break;
+        case 5:
+            break;
         }
     }
 
@@ -71,7 +81,7 @@ private:
             this->update(_model->execute(input));
         }
     }
-    
+
     void measureHandle(void)
     {
         static unsigned long curmil = 0;
