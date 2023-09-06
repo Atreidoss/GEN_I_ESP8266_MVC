@@ -11,10 +11,13 @@
 class Button : public VButton
 {
 public:
-    Button(){}
+    Button() {}
 
     Button(uint8_t pin, bool isInvers)
     {
+         setHoldTimeout(BUTTON_HOLD_TIMEOUT);
+         setStepTimeout(BUTTON_STEP_TIMEOUT);
+
         _pin = pin;
         _isInvers = isInvers;
         if (_isInvers == true)

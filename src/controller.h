@@ -31,17 +31,7 @@ private:
     Measure _adc;
     output _out;
 
-    void measureHandle(void)
-    {
-        static unsigned long curmil = 0;
-        if (millis() - curmil > POOL_MEASURMENT_BAT_MS)
-        {
-            _model->setBatValue(_adc.getValue(ADC_BAT, MEASURMENT_BAT_COUNT));
-            curmil = millis();
-        }
-    }
-
-    void updateState(bool isEditChanged)
+    void update(bool isEditChanged)
     {
         int type = _model->getType();
         bool edit = _model->getEdit();
@@ -78,7 +68,17 @@ private:
         int input = _keyboard.getState();
         if (input)
         {
-            updateState(_model->execute(input));
+            this->update(_model->execute(input));
+        }
+    }
+    
+    void measureHandle(void)
+    {
+        static unsigned long curmil = 0;
+        if (millis() - curmil > POOL_MEASURMENT_BAT_MS)
+        {
+            _model->setBatValue(_adc.getValue(ADC_BAT, MEASURMENT_BAT_COUNT));
+            curmil = millis();
         }
     }
 };
