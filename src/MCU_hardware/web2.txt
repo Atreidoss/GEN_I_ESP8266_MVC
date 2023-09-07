@@ -10,9 +10,6 @@ IPAddress ip;
 
 ESP8266WebServer httpServer(80);
 ESP8266HTTPUpdateServer httpUpdater;
-
-//const char* serverIndex = "<form method='POST' action='/update' enctype='multipart/form-data'><input type='file' name='update'><input type='submit' value='Update'></form>";
-
 void update_loop(void)
 {
   web();
@@ -28,9 +25,6 @@ void web(void)
   WiFi.begin(ssid, password);
 
   if (WiFi.waitForConnectResult() == WL_CONNECTED) {
-    //WiFi.begin(ssid, password);
-    //    Serial.println("WiFi failed, retrying.");
-    //}
 
     MDNS.begin(host);
 
@@ -38,7 +32,6 @@ void web(void)
     httpServer.begin();
 
     MDNS.addService("http", "tcp", 80);
-    //  Serial.printf("HTTPUpdateServer ready! Open http://%s.local/update in your browser\n", host);
 
     ip = WiFi.localIP();
   }

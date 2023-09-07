@@ -12,7 +12,7 @@ public:
     Model()
     {
         menuRebuild();
-        //int menuSize = menuRebuild();
+        // int menuSize = menuRebuild();
         //_memory.init(sizeof(menuSize) * menuSize);
     }
 
@@ -67,6 +67,11 @@ public:
         _batPercent = ((_batValue - 3.00) / 1.20) * 100;
         _batPercent = constrain(_batPercent, 0.00, 100.00);
         notifyUpdate();
+    }
+
+    void setIP (String ip)
+    {
+        _ip = ip;
     }
 
     float getBatValue(void)
@@ -140,6 +145,12 @@ public:
         return menuArray[_menuNowPos].value;
     }
 
+    // Возвращает IP адресс прибора
+    String getIP(void)
+    {
+        return _ip;
+    }
+
     bool execute(int input)
     {
         bool prevEdit = _menuEdit;
@@ -188,8 +199,9 @@ private:
     int _localFirstIndex = 0;
     float _batValue = 0;
     float _batPercent = 0;
+    String _ip = "";
 
-    //Eeprom _memory;
+    // Eeprom _memory;
 
     // Действия при нажатии кнопки "вверх"
     void moveUp(void)

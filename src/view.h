@@ -179,7 +179,19 @@ private:
 
     void drawWifi(void)
     {
-        _display.print("ERROR");
+        int pos_y = (DISP_HEIGHT / 4) * 2 - 2;
+        int pos_x = 0;
+        _display.setFont(u8g2_font_helvR10_te);
+        _display.setCursor(pos_x, pos_y);
+        _display.print("Connect to WIFI");
+        pos_y += 16;
+        _display.setCursor(pos_x, pos_y);
+        _display.print("Name: ");
+        _display.print(STASSID);
+        pos_y += 16;
+        _display.setCursor(pos_x, pos_y);
+        _display.print("Pass: ");
+        _display.print(STAPSK);
     }
 
     void drawError(void)

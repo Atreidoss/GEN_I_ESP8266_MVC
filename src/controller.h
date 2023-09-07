@@ -6,6 +6,7 @@
 #include "keyboard.h"
 #include "MCU_hardware/adc.h"
 #include "MCU_hardware/ampere.h"
+#include "MCU_hardware/web.h"
 
 class Controller
 {
@@ -22,7 +23,8 @@ public:
     void loop()
     {
         buttonsHandle();
-        measureHandle();
+        measureHandle(_isWifiOn);
+        updateHandle(_isWifiOn);
     }
 
 private:
@@ -30,6 +32,9 @@ private:
     Keyboard _keyboard;
     Measure _adc;
     output _out;
+    web _update;
+
+    bool _isWifiOn = false;
 
     void update(bool isEditChanged)
     {
@@ -63,6 +68,9 @@ private:
         case 4:
             if (isEditChanged)
             {
+                _update.setMode(edit);
+                _model->setIP(_update.getIP());
+                _isWifiOn = edit;
             }
             else
             {
@@ -82,13 +90,26 @@ private:
         }
     }
 
-    void measureHandle(void)
+    void measureHandle(bool mode)
     {
         static unsigned long curmil = 0;
-        if (millis() - curmil > POOL_MEASURMENT_BAT_MS)
+        if (!mode)
         {
-            _model->setBatValue(_adc.getValue(ADC_BAT, MEASURMENT_BAT_COUNT));
-            curmil = millis();
+            if (millis() - curmil > POOL_MEASURMENT_BAT_MS)
+            {
+                _model->setBatValue(_adc.getValue(ADC_BAT, MEASURMENT_BAT_COUNT));
+                curmil = millis();
+            }
+        }
+    }
+    void updateHandle(bool mode)
+    {
+        if (mode)
+        {
+            _update.handle();
+        }
+        else
+        {
         }
     }
 };
