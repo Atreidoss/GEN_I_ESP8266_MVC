@@ -69,9 +69,15 @@ public:
         notifyUpdate();
     }
 
+    void setWifiState(bool state)
+    {
+        _wifiState = state;
+    }
+
     void setIP (String ip)
     {
         _ip = ip;
+        notifyUpdate();
     }
 
     float getBatValue(void)
@@ -145,6 +151,11 @@ public:
         return menuArray[_menuNowPos].value;
     }
 
+    bool getWifiState(void)
+    {
+        return _wifiState;
+    }
+
     // Возвращает IP адресс прибора
     String getIP(void)
     {
@@ -200,6 +211,7 @@ private:
     float _batValue = 0;
     float _batPercent = 0;
     String _ip = "";
+    bool _wifiState = false;
 
     // Eeprom _memory;
 

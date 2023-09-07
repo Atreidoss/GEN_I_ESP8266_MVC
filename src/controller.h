@@ -69,8 +69,11 @@ private:
             if (isEditChanged)
             {
                 _update.setMode(edit);
-                _model->setIP(_update.getIP());
                 _isWifiOn = edit;
+                if (edit)
+                {
+                    _model->setIP(_update.getIP());
+                }
             }
             else
             {
