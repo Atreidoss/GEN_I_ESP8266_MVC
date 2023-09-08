@@ -6,14 +6,18 @@
 #include "Menu/menu.h"
 #include "MCU_hardware/eeprom.h"
 
+#define CONTROL_MEMORY_CODE 12345
+
 class Model : public Observable, private ExecuteMenu
 {
 public:
     Model()
     {
         menuRebuild();
-        // int menuSize = menuRebuild();
-        //_memory.init(sizeof(menuSize) * menuSize);
+        // _mem.init(512);
+        // // initData(menuRebuild());
+        // _mem.writeInt(0, 77);
+        // setValue(3,_mem.getInt(0));
     }
 
     // Возвращает имя пункта меню/подменю для указанного индекса
@@ -41,6 +45,12 @@ public:
         notifyUpdate();
     }
 
+    // Устанавливает значение (value) для указанного меню и обновляет эран(view)
+    void setValue(int pos, int value)
+    {
+        menuArray[pos].value = value;
+    }
+
     // Устанавливает индекс текущего меню и обновляет эран(view)
     void setMenuPos(int menuPos)
     {
@@ -58,6 +68,7 @@ public:
     void setEdit(bool edit)
     {
         _menuEdit = edit;
+        // saveData();
         notifyUpdate();
     }
 
@@ -75,7 +86,7 @@ public:
         notifyUpdate();
     }
 
-    void setIP (String ip)
+    void setIP(String ip)
     {
         _ip = ip;
     }
@@ -151,6 +162,12 @@ public:
         return menuArray[_menuNowPos].value;
     }
 
+    // Возвращает значение Value для указанного пунка меню (_menuNowPos)
+    int getValue(int pos)
+    {
+        return menuArray[pos].value;
+    }
+
     bool getWifiState(void)
     {
         return _wifiState;
@@ -203,6 +220,7 @@ public:
     }
 
 private:
+    Eeprom _mem;
     int _menuNowPos = 1;
     bool _menuEdit = false;
     int _localPos = 0;
@@ -212,8 +230,45 @@ private:
     float _batPercent = 0;
     String _ip = "";
     bool _wifiState = false;
+    int _tempValue = 0;
 
-    // Eeprom _memory;
+    void initData(int len)
+    {
+        int slotSize = sizeof(int);
+        _mem.init(slotSize * (len + 1));
+        if (_mem.getInt(slotSize * (len + 1)) != CONTROL_MEMORY_CODE)
+        {
+            _mem.writeInt(slotSize * (len + 1), CONTROL_MEMORY_CODE);
+            for (int i = 0; i < len; i++)
+            {
+                _mem.writeInt(slotSize * i, getValue(i));
+            }
+        }
+        else
+        {
+            for (int i = 0; i < len; i++)
+            {
+                setValue(i, _mem.getInt(slotSize * i));
+            }
+        }
+    }
+
+    void saveData(void)
+    {
+        int slotSize = sizeof(int);
+        int val = getValue();
+        if (_menuEdit)
+        {
+            _tempValue = val;
+        }
+        else
+        {
+            if (_tempValue != val)
+            {
+                _mem.writeInt(slotSize * _menuNowPos, val);
+            }
+        }
+    }
 
     // Действия при нажатии кнопки "вверх"
     void moveUp(void)
@@ -286,7 +341,7 @@ private:
         }
     }
 
-    // Действия при нажатии кнопки "Эскейп"
+    // Действия при нажатии кнопки "Эскейп" ( зажатие кнопки Ввод )
     void cancelAction(void)
     {
         if (_menuEdit == false)
