@@ -23,7 +23,7 @@ public:
     void loop()
     {
         buttonsHandle();
-        measureHandle(_isWifiOn);
+        measureHandle(false);
         updateHandle(_isWifiOn);
     }
 

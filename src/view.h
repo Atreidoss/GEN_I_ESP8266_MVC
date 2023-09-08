@@ -124,8 +124,8 @@ private:
     void drawAmper(void)
     {
         int pos_y = (DISP_HEIGHT / 4) * 3;
-        int pos_x = (DISP_WIDTH / 2) - 5;
-        _display.setFont(u8g2_font_helvR10_te);
+        int pos_x = (DISP_WIDTH / 2) - 20;
+        _display.setFont(u8g2_font_inb16_mn ); //u8g2_font_helvR10_te);
         _display.setCursor(pos_x, pos_y);
         _display.print(_model->getValue() / 10);
         _display.print(".");
