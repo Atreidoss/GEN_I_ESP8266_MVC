@@ -187,10 +187,10 @@ private:
             _display.setCursor(pos_x, pos_y);
             _display.print("Open URL: ");
             pos_y += 16;
-            _display.setCursor(pos_x, pos_y);
+            _display.setFont(u8g2_font_helvR08_tf);
+            _display.setCursor(pos_x + 5, pos_y);
             _display.print(_model->getIP());
             _display.print("/update");
-            _display.print(STASSID);
         }
         else
         {

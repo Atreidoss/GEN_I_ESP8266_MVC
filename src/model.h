@@ -72,12 +72,12 @@ public:
     void setWifiState(bool state)
     {
         _wifiState = state;
+        notifyUpdate();
     }
 
     void setIP (String ip)
     {
         _ip = ip;
-        notifyUpdate();
     }
 
     float getBatValue(void)

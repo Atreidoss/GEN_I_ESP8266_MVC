@@ -74,6 +74,7 @@ private:
                 {
                     _model->setIP(_update.getIP());
                 }
+                    _model->setWifiState(edit);
             }
             else
             {
