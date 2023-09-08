@@ -8,7 +8,8 @@
 class Eeprom
 {
 public:
-    Eeprom();
+    Eeprom(){}
+    
     void init(int eppromSize)
     {
         EEPROM.begin(eppromSize);
