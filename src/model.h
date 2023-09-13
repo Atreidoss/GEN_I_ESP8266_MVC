@@ -7,17 +7,14 @@
 #include "MCU_hardware/eeprom.h"
 
 #define CONTROL_MEMORY_CODE 12345
+#define SIZE_OF_INT sizeof(int)
 
 class Model : public Observable, private ExecuteMenu
 {
 public:
     Model()
     {
-        menuRebuild();
-        // _mem.init(512);
-        // // initData(menuRebuild());
-        // _mem.writeInt(0, 77);
-        // setValue(3,_mem.getInt(0));
+        initEEPROM(menuRebuild());
     }
 
     // Возвращает имя пункта меню/подменю для указанного индекса
@@ -68,7 +65,7 @@ public:
     void setEdit(bool edit)
     {
         _menuEdit = edit;
-        // saveData();
+        saveEEPROM();
         notifyUpdate();
     }
 
@@ -179,6 +176,11 @@ public:
         return _ip;
     }
 
+    void updateView(void)
+    {
+        notifyUpdate();
+    }
+    
     bool execute(int input)
     {
         bool prevEdit = _menuEdit;
@@ -220,7 +222,6 @@ public:
     }
 
 private:
-    Eeprom _mem;
     int _menuNowPos = 1;
     bool _menuEdit = false;
     int _localPos = 0;
@@ -232,30 +233,35 @@ private:
     bool _wifiState = false;
     int _tempValue = 0;
 
-    void initData(int len)
+    void initEEPROM(int len)
     {
-        int slotSize = sizeof(int);
-        _mem.init(slotSize * (len + 1));
-        if (_mem.getInt(slotSize * (len + 1)) != CONTROL_MEMORY_CODE)
+        int slotSize = SIZE_OF_INT;
+        int tempData;
+        EEPROM.begin(512);
+        delay(10);
+        EEPROM.get(slotSize * (len + 1), tempData);
+        if (tempData != CONTROL_MEMORY_CODE)
         {
-            _mem.writeInt(slotSize * (len + 1), CONTROL_MEMORY_CODE);
+            EEPROM.put(slotSize * (len + 1), CONTROL_MEMORY_CODE);
             for (int i = 0; i < len; i++)
             {
-                _mem.writeInt(slotSize * i, getValue(i));
+                EEPROM.put(slotSize * i, getValue(i));
             }
+            EEPROM.commit();
         }
         else
         {
             for (int i = 0; i < len; i++)
             {
-                setValue(i, _mem.getInt(slotSize * i));
+                EEPROM.get(slotSize * i, tempData);
+                setValue(i, tempData);
             }
         }
     }
 
-    void saveData(void)
+    void saveEEPROM(void)
     {
-        int slotSize = sizeof(int);
+        int slotSize = SIZE_OF_INT;
         int val = getValue();
         if (_menuEdit)
         {
@@ -265,7 +271,8 @@ private:
         {
             if (_tempValue != val)
             {
-                _mem.writeInt(slotSize * _menuNowPos, val);
+                EEPROM.put(slotSize * _menuNowPos, val);
+                EEPROM.commit();
             }
         }
     }

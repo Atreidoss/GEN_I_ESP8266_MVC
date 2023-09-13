@@ -10,9 +10,9 @@ class Eeprom
 public:
     Eeprom(){}
     
-    void init(int eppromSize)
+    void init(int eepromSize)
     {
-        EEPROM.begin(eppromSize);
+        EEPROM.begin(eepromSize);
     }
 
     void writeInt(int address, int value)

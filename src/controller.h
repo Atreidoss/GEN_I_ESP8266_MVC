@@ -23,8 +23,8 @@ public:
     void loop()
     {
         buttonsHandle();
-        measureHandle(false);
-        updateHandle(_isWifiOn);
+        measureHandle();
+        wifiHandle(_isWifiOn);
     }
 
 private:
@@ -36,15 +36,19 @@ private:
 
     bool _isWifiOn = false;
 
-    void update(bool isEditChanged)
+    void updateCustomMenu(bool isEditSwitched)
     {
         int type = _model->getType();
         bool edit = _model->getEdit();
 
         switch (type)
         {
+        case 0:
+            break;
+        case 1:
+            break;
         case 2:
-            if (isEditChanged)
+            if (isEditSwitched)
             {
                 _out.switcher(AMPERE_PS_ON, edit);
                 _model->setValue(40);
@@ -55,7 +59,7 @@ private:
             }
             break;
         case 3:
-            if (isEditChanged)
+            if (isEditSwitched)
             {
                 _out.switcher(AMPERE_PS_OFF, edit);
                 _model->setValue(40);
@@ -66,7 +70,7 @@ private:
             }
             break;
         case 4:
-            if (isEditChanged)
+            if (isEditSwitched)
             {
                 _update.setMode(edit);
                 _isWifiOn = edit;
@@ -74,10 +78,7 @@ private:
                 {
                     _model->setIP(_update.getIP());
                 }
-                    _model->setWifiState(edit);
-            }
-            else
-            {
+                _model->setWifiState(edit);
             }
             break;
         case 5:
@@ -90,23 +91,20 @@ private:
         int input = _keyboard.getState();
         if (input)
         {
-            this->update(_model->execute(input));
+            updateCustomMenu(_model->execute(input));
         }
     }
 
-    void measureHandle(bool mode)
+    void measureHandle(void)
     {
         static unsigned long curmil = 0;
-        if (!mode)
+        if (millis() - curmil > POOL_MEASURMENT_BAT_MS)
         {
-            if (millis() - curmil > POOL_MEASURMENT_BAT_MS)
-            {
-                _model->setBatValue(_adc.getValue(ADC_BAT, MEASURMENT_BAT_COUNT));
-                curmil = millis();
-            }
+            _model->setBatValue(_adc.getValue(ADC_BAT, MEASURMENT_BAT_COUNT));
+            curmil = millis();
         }
     }
-    void updateHandle(bool mode)
+    void wifiHandle(bool mode)
     {
         if (mode)
         {
