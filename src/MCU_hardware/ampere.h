@@ -43,11 +43,24 @@ public:
 
     void setValue(int val)
     {
-        int tempVal = map(val, CURRENT_4MA_INT_X10, CURRENT_20MA_INT_X10, CURRENT_4MA_PWM_10BIT, CURRENT_20MA_PWM_10BIT);
+        int tempVal = map(val, _pwm_4ma, _pwm_20ma, CURRENT_4MA_PWM_10BIT, CURRENT_20MA_PWM_10BIT);
         setPwm(tempVal);
     }
 
+    void set4(int value)
+    {
+        _pwm_4ma = value;
+    }
+
+    void set20(int value)
+    {
+        _pwm_20ma = value;        
+    }
+
 private:
+    int _pwm_4ma = CURRENT_4MA_INT_X10;
+    int _pwm_20ma = CURRENT_20MA_INT_X10;
+
     void on(int mode)
     {
         switch (mode)

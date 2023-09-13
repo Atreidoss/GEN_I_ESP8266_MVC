@@ -119,6 +119,7 @@ private:
         _display.setCursor(pos_x, pos_y);
         _display.print(_model->getValue());
     }
+//todo добавить вывод 10Bit PWM
     void drawAmper(void)
     {
         int pos_y = (DISP_HEIGHT / 4) * 3;

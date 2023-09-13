@@ -59,7 +59,13 @@ private:
         case MENU_TYPE_SOFT_VERSION:
             break;
         case MENU_TYPE_CAL_4MA:
-            cal4Control();
+            if (isEditSwitched)
+            {
+
+            }
+            else
+            {
+            }
             break;
         }
     }
@@ -71,7 +77,7 @@ private:
         if (isSwitched)
         {
             _out.switcher(mode, isEdit);
-            _model->setValue(40);
+            _model->setValue(CURRENT_4MA_INT_X10);
         }
         else
         {
