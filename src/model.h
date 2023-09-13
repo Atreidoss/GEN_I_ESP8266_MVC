@@ -146,12 +146,14 @@ public:
     {
         return menuArray[getParent()].indexChild;
     }
+ 
     // Возвращает индекс первого дочернего пункта для текущего меню/подменю
     int getChild(void)
     {
         return menuArray[_menuNowPos].indexChild;
     }
 
+    // Возвращает индекс родителя для текущего меню/подменю
     int getParent(void)
     {
         return menuArray[_menuNowPos].indexParent;
@@ -161,8 +163,8 @@ public:
     int getType(void)
     {
         return menuArray[_menuNowPos].type;
-    }    
-    
+    }
+
     // Возвращает тип меню для указанного пунка меню (_menuNowPos)
     int getType(int pos)
     {
@@ -187,6 +189,7 @@ public:
         return _wifiState;
     }
 
+    // Возвращает значение Value для пункта меню с указанным типом
     int getMenuTypeValue(int type)
     {
         int val;
@@ -213,6 +216,7 @@ public:
         notifyUpdate();
     }
 
+    // Обрабатывает код нажатой кнопки и обрабатывает событие
     bool execute(int input)
     {
         bool prevEdit = _menuEdit;
@@ -246,6 +250,7 @@ public:
         }
     }
 
+    // Инициализация переменных для области видимых пунктов на экране, устанавливается максимальное количество строк одновременно отображаемых на экране 
     void initLocalSize(int size)
     {
         _localPos = 0;

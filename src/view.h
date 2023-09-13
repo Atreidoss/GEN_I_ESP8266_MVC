@@ -57,6 +57,12 @@ private:
             case MENU_TYPE_SOFT_VERSION:
                 drawSoftVer();
                 break;
+            case MENU_TYPE_CAL_4MA:
+                drawParam();
+                break;
+            case MENU_TYPE_CAL_20MA:
+                drawParam();
+                break;
             default:
                 drawError();
                 break;
@@ -202,7 +208,7 @@ private:
     void drawError(void)
     {
         _display.setFont(u8g2_font_helvR10_te);
-        _display.setCursor(DISP_WIDTH/2 - 30, DISP_HEIGHT / 2 + 10);
+        _display.setCursor(DISP_WIDTH / 2 - 30, DISP_HEIGHT / 2 + 10);
         _display.print("ERROR");
     }
 };
