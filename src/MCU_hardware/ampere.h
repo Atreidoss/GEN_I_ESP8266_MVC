@@ -57,6 +57,22 @@ public:
         _pwm_20ma = value;        
     }
 
+    void setPwm(int val)
+    {
+        if (val <= PWM_MIN)
+        {
+            digitalWrite(PIN_PWM_AMPERE, LOW);
+        }
+        else if (val >= PWM_MAX)
+        {
+            digitalWrite(PIN_PWM_AMPERE, HIGH);
+        }
+        else
+        {
+            analogWrite(PIN_PWM_AMPERE, val);
+        }
+    }
+    
 private:
     int _pwm_4ma = CURRENT_4MA_INT_X10;
     int _pwm_20ma = CURRENT_20MA_INT_X10;
@@ -82,22 +98,6 @@ private:
     {
         setPowerOn(false);
         setPwm(0);
-    }
-
-    void setPwm(int val)
-    {
-        if (val <= PWM_MIN)
-        {
-            digitalWrite(PIN_PWM_AMPERE, LOW);
-        }
-        else if (val >= PWM_MAX)
-        {
-            digitalWrite(PIN_PWM_AMPERE, HIGH);
-        }
-        else
-        {
-            analogWrite(PIN_PWM_AMPERE, val);
-        }
     }
 
     void setPowerOn(bool state)

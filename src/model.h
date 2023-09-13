@@ -67,7 +67,7 @@ public:
     void setEdit(bool edit)
     {
         _menuEdit = edit;
-        saveEEPROM();
+        // saveEEPROM();
         notifyUpdate();
     }
 
@@ -86,25 +86,25 @@ public:
         _wifiState = state;
         notifyUpdate();
     }
-    
+
     // Сохраняет IP адресс из контроллера, для передачи в модель
     void setIP(String ip)
     {
         _ip = ip;
     }
 
-    // Возвращает значение напряжения батарейки 
+    // Возвращает значение напряжения батарейки
     float getBatValue(void)
     {
         return _batValue;
     }
 
-    // Возвращает значение напряжения батарейки в процентах от полного заряда(4.2В) 
+    // Возвращает значение напряжения батарейки в процентах от полного заряда(4.2В)
     float getBatPercent(void)
     {
         return _batPercent;
     }
- 
+
     // Возвращает состояние меню: true - редактирование параметра, false - перемещение по меню
     bool getEdit()
     {
@@ -192,7 +192,7 @@ public:
     {
         notifyUpdate();
     }
-    
+
     bool execute(int input)
     {
         bool prevEdit = _menuEdit;
@@ -271,22 +271,26 @@ private:
         }
     }
 
-    void saveEEPROM(void)
+    void saveEEPROM(int val)
     {
+        // int slotSize = SIZE_OF_INT;
+        // int val = getValue();
+        // if (_menuEdit)
+        // {
+        //     _tempValue = val;
+        // }
+        // else
+        // {
+        //     if (_tempValue != val)
+        //     {
+        //         EEPROM.put(slotSize * _menuNowPos, val);
+        //         EEPROM.commit();
+        //     }
+        // }
+
         int slotSize = SIZE_OF_INT;
-        int val = getValue();
-        if (_menuEdit)
-        {
-            _tempValue = val;
-        }
-        else
-        {
-            if (_tempValue != val)
-            {
-                EEPROM.put(slotSize * _menuNowPos, val);
-                EEPROM.commit();
-            }
-        }
+        EEPROM.put(slotSize * _menuNowPos, val);
+        EEPROM.commit();
     }
 
     // Действия при нажатии кнопки "вверх"
@@ -334,8 +338,10 @@ private:
     // Действия при нажатии кнопки "Ввод"
     void executeAction(void)
     {
+        int val = getValue();
         if (_menuEdit == false)
         {
+            _tempValue = val;
             if (getType() == 0)
             {
                 int child = getChild();
@@ -343,10 +349,6 @@ private:
                 {
                     _localPos = 0;
                     setMenuPos(child);
-                }
-                else
-                {
-                    setEdit(true);
                 }
             }
             else
@@ -356,6 +358,10 @@ private:
         }
         else
         {
+            if (_tempValue != val)
+            {
+                saveEEPROM(val);
+            }
             setEdit(false);
         }
     }
@@ -372,6 +378,7 @@ private:
         }
         else
         {
+            setValue(_tempValue);
             setEdit(false);
         }
     }

@@ -59,13 +59,7 @@ private:
         case MENU_TYPE_SOFT_VERSION:
             break;
         case MENU_TYPE_CAL_4MA:
-            if (isEditSwitched)
-            {
-
-            }
-            else
-            {
-            }
+            calControl(isEditSwitched, edit);
             break;
         }
     }
@@ -100,8 +94,17 @@ private:
         }
     }
 
-    void cal4Control()
+    void calControl(bool isSwitched, bool isEdit)
     {
+        if (isSwitched)
+        {
+            _out.switcher(AMPERE_PS_ON, isEdit);
+            _out.set4(_model->getValue());
+        }
+        else
+        {
+            _out.setPwm(_model->getValue());
+        }
     }
 
     // Крутится в цикле, получает события нажатий/зажатий кнопок от клавиатуры
