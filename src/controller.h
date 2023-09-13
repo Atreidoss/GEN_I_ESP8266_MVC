@@ -48,44 +48,60 @@ private:
         case MENU_TYPE_NUMBER:
             break;
         case MENU_TYPE_CURRENT_INTERNAL:
-            if (isEditSwitched)
-            {
-                _out.switcher(AMPERE_PS_ON, edit);
-                _model->setValue(40);
-            }
-            else
-            {
-                _out.setValue(_model->getValue());
-            }
+            currentControl(isEditSwitched, edit, AMPERE_PS_ON);
             break;
         case MENU_TYPE_CURRENT_EXTERNAL:
-            if (isEditSwitched)
-            {
-                _out.switcher(AMPERE_PS_OFF, edit);
-                _model->setValue(40);
-            }
-            else
-            {
-                _out.setValue(_model->getValue());
-            }
+            currentControl(isEditSwitched, edit, AMPERE_PS_OFF);
             break;
         case MENU_TYPE_WIFI:
-            if (isEditSwitched)
-            {
-                _update.setMode(edit);
-                _isWifiOn = edit;
-                if (edit)
-                {
-                    _model->setIP(_update.getIP());
-                }
-                _model->setWifiState(edit);
-            }
+            wifiControl(isEditSwitched, edit);
             break;
         case MENU_TYPE_SOFT_VERSION:
+            break;
+        case MENU_TYPE_CAL_4MA:
+            cal4Control();
             break;
         }
     }
 
+    // Включает/выключает напряжение и генерацию тока при входе/выходе из этого меню
+    // Задает ШИМ эквивалентный заданному выходному току (пересчет тока в 10бит ШИМ в объекте _out)
+    void currentControl(bool isSwitched, bool isEdit, int mode)
+    {
+        if (isSwitched)
+        {
+            _out.switcher(mode, isEdit);
+            _model->setValue(40);
+        }
+        else
+        {
+            _out.setValue(_model->getValue());
+        }
+    }
+
+    // Включает/выключает WIFI, подключается к точке доступа и получает IP при входе/выходе из этого меню
+    void wifiControl(bool isSwitched, bool isEdit)
+    {
+        if (isSwitched)
+        {
+            _update.setMode(isEdit);
+            _isWifiOn = isEdit;
+            if (isEdit)
+            {
+                _model->setIP(_update.getIP());
+            }
+            _model->setWifiState(isEdit);
+        }
+    }
+
+    void cal4Control()
+    {
+    }
+
+    // Крутится в цикле, получает события нажатий/зажатий кнопок от клавиатуры
+    // Передает событие в модель для обновления состояния
+    // По событию формирует управление переферией (измерение нарпяжений, шим генерация тока,
+    // вкл/выкл внутреннего источника питания, запуск веб интерфейса)
     void buttonsHandle(void)
     {
         int input = _keyboard.getState();

@@ -6,12 +6,17 @@
 // Список типов меню
 enum menuType : int
 {
-    MENU_TYPE_MENU,                 // 0 - меню/подменю, не редактируемый параметр
-    MENU_TYPE_NUMBER,               // 1 - целое число, редактируемый
-    MENU_TYPE_CURRENT_INTERNAL,     // 2 - задание тока встроенный источник, редактируемый
-    MENU_TYPE_CURRENT_EXTERNAL,     // 3 - задание тока внешний источник, редактируемый
-    MENU_TYPE_WIFI,                 // 4 - обновление по вайфай, редактируемый
-    MENU_TYPE_SOFT_VERSION,         // 5 - версия ПО
+    MENU_TYPE_MENU,                 //  0 - меню/подменю, не редактируемый параметр
+    MENU_TYPE_NUMBER,               //  1 - целое число, редактируемый
+    MENU_TYPE_CURRENT_INTERNAL,     //  2 - задание тока встроенный источник, редактируемый
+    MENU_TYPE_CURRENT_EXTERNAL,     //  3 - задание тока внешний источник, редактируемый
+    MENU_TYPE_WIFI,                 //  4 - обновление по вайфай, редактируемый
+    MENU_TYPE_SOFT_VERSION,         //  5 - версия ПО
+    MENU_TYPE_VOLTS_MEASURE,        //  6 - измерение напряжения
+    MENU_TYPE_CAL_4MA,              //  7 - калибровка 4 МА, редактируемый
+    MENU_TYPE_CAL_20MA,             //  8 - калибровка 20 МА, редактируемый
+    MENU_TYPE_CAL_VOLTS,            //  9 - калибровка измерений напряжения 
+    MENU_TYPE_CAL_BAT               // 10 - калибровка измерений напряжения батарейки
 };
 // класс пункта меню
 class MenuItem

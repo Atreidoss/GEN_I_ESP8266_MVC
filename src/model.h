@@ -3,6 +3,7 @@
 
 #include <Arduino.h>
 #include "observable.h"
+#include "settings.h"
 #include "Menu/menu.h"
 #include "MCU_hardware/eeprom.h"
 
@@ -56,6 +57,7 @@ public:
         notifyUpdate();
     }
 
+    // Вычисляет индекс первой локальной позиции строки в области вдимости подменю на экране
     void setLocalPos(void)
     {
         _localFirstIndex = _menuNowPos - _localPos;
@@ -115,11 +117,13 @@ public:
         return _menuNowPos;
     }
 
+    // Возвращает локальную(текущую) позицию строки в области вдимости строк на экране
     int getLocalPos(void)
     {
         return _localPos;
     }
 
+    // Возвращает индекс первой локальной позиции строки в области вдимости подменю на экране
     int getFirstLocalIndex(void)
     {
         return _localFirstIndex;

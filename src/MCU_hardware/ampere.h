@@ -9,6 +9,10 @@
 #define PIN_ITERNAL_POWER_SUPPLY 3 // Номер ножки подачи напряжения от внутреннего источника питания
 #define PWM_RESOLUTION 10          // Разрешение ШИМ, бит
 #define PWM_FREQUENCY 1000         // Частота ШИМ, Гц
+#define CURRENT_4MA_INT_X10 40     // Значение 4ма * 10 для отображения с десятыми долями без использования float
+#define CURRENT_20MA_INT_X10 200   // Значение 20ма * 10 для отображения с десятыми долями без использования float   
+#define CURRENT_4MA_PWM_10BIT 58   // Дефолтное значение 10 битного ШИМ для 4 мА
+#define CURRENT_20MA_PWM_10BIT 743 // Дефолтное значение 10 битного ШИМ для 20 мА 
 #endif
 
 #define PWM_MIN 0
@@ -39,7 +43,7 @@ public:
 
     void setValue(int val)
     {
-        int tempVal = map(val, 40, 200, 58, 743);
+        int tempVal = map(val, CURRENT_4MA_INT_X10, CURRENT_20MA_INT_X10, CURRENT_4MA_PWM_10BIT, CURRENT_20MA_PWM_10BIT);
         setPwm(tempVal);
     }
 
