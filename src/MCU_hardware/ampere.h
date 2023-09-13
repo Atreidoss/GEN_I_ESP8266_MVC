@@ -20,6 +20,8 @@
 
 #define AMPERE_PS_ON 1
 #define AMPERE_PS_OFF 2
+#define MODE_CAL_4MA 1
+#define MODE_CAL_20MA 2
 
 class output
 {
@@ -72,7 +74,7 @@ public:
             analogWrite(PIN_PWM_AMPERE, val);
         }
     }
-    
+
 private:
     int _pwm_4ma = CURRENT_4MA_INT_X10;
     int _pwm_20ma = CURRENT_20MA_INT_X10;
