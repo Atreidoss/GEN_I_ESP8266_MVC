@@ -17,6 +17,8 @@ public:
         _model = model;
         _model->setMenuPos(0);
         _model->execute(BUTTON_ENTER_CODE);
+        _out.set4(_model->getMenuTypeValue(MODE_CAL_4MA));
+        _out.set20(_model->getMenuTypeValue(MODE_CAL_20MA));
     }
 
     // Опрос кнопок, отправка соответствующих команд в модель.
@@ -59,7 +61,10 @@ private:
         case MENU_TYPE_SOFT_VERSION:
             break;
         case MENU_TYPE_CAL_4MA:
-            calControl(isEditSwitched, edit);
+            calControl(isEditSwitched, edit, MODE_CAL_4MA);
+            break;
+        case MENU_TYPE_CAL_20MA:
+            calControl(isEditSwitched, edit, MODE_CAL_20MA);
             break;
         }
     }
@@ -94,12 +99,15 @@ private:
         }
     }
 
-    void calControl(bool isSwitched, bool isEdit)
+    void calControl(bool isSwitched, bool isEdit, int mode)
     {
         if (isSwitched)
         {
             _out.switcher(AMPERE_PS_ON, isEdit);
-            _out.set4(_model->getValue());
+            if (mode == MODE_CAL_4MA)
+                _out.set4(_model->getValue());
+            else if (mode == MODE_CAL_20MA)
+                _out.set20(_model->getValue());
         }
         else
         {

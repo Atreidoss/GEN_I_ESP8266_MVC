@@ -119,12 +119,12 @@ private:
         _display.setCursor(pos_x, pos_y);
         _display.print(_model->getValue());
     }
-//todo добавить вывод 10Bit PWM
+    // todo добавить вывод 10Bit PWM
     void drawAmper(void)
     {
         int pos_y = (DISP_HEIGHT / 4) * 3;
         int pos_x = (DISP_WIDTH / 2) - 20;
-        _display.setFont(u8g2_font_inb16_mn ); //u8g2_font_helvR10_te);
+        _display.setFont(u8g2_font_inb16_mn); // u8g2_font_helvR10_te);
         _display.setCursor(pos_x, pos_y);
         _display.print(_model->getValue() / 10);
         _display.print(".");
@@ -202,7 +202,7 @@ private:
     void drawError(void)
     {
         _display.setFont(u8g2_font_helvR10_te);
-        _display.setCursor(DISP_WIDTH - 10, DISP_HEIGHT / 2);
+        _display.setCursor(DISP_WIDTH/2 - 30, DISP_HEIGHT / 2 + 10);
         _display.print("ERROR");
     }
 };

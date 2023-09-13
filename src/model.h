@@ -15,7 +15,8 @@ class Model : public Observable, private ExecuteMenu
 public:
     Model()
     {
-        initEEPROM(menuRebuild());
+        _menuSize = menuRebuild();
+        initEEPROM(_menuSize);
     }
 
     // Возвращает имя пункта меню/подменю для указанного индекса
@@ -67,7 +68,6 @@ public:
     void setEdit(bool edit)
     {
         _menuEdit = edit;
-        // saveEEPROM();
         notifyUpdate();
     }
 
@@ -161,6 +161,12 @@ public:
     int getType(void)
     {
         return menuArray[_menuNowPos].type;
+    }    
+    
+    // Возвращает тип меню для указанного пунка меню (_menuNowPos)
+    int getType(int pos)
+    {
+        return menuArray[_menuNowPos].type;
     }
 
     // Возвращает значение Value для текущего пунка меню (_menuNowPos)
@@ -179,6 +185,20 @@ public:
     bool getWifiState(void)
     {
         return _wifiState;
+    }
+
+    int getMenuTypeValue(int type)
+    {
+        int val;
+        for (int i = 0; i < _menuSize; i++)
+        {
+            if (getType(i) == type)
+            {
+                val = getValue(i);
+                break;
+            }
+        }
+        return val;
     }
 
     // Возвращает IP адресс прибора
@@ -244,6 +264,7 @@ private:
     String _ip = "";
     bool _wifiState = false;
     int _tempValue = 0;
+    int _menuSize = 0;
 
     void initEEPROM(int len)
     {
