@@ -42,19 +42,19 @@ private:
         {
             switch (_model->getType())
             {
-            case 1:
+            case MENU_TYPE_NUMBER:
                 drawParam();
                 break;
-            case 2:
+            case MENU_TYPE_CURRENT_INTERNAL:
                 drawAmper();
                 break;
-            case 3:
+            case MENU_TYPE_CURRENT_EXTERNAL:
                 drawAmper();
                 break;
-            case 4:
+            case MENU_TYPE_WIFI:
                 drawWifi();
                 break;
-            case 5:
+            case MENU_TYPE_SOFT_VERSION:
                 drawSoftVer();
                 break;
             default:
@@ -68,9 +68,7 @@ private:
         }
         _display.sendBuffer();
     }
-    void drawMainMenu(void)
-    {
-    }
+
     void drawTop(bool isEdit)
     {
         int pos_y = DISP_HEIGHT / 4;
@@ -138,10 +136,6 @@ private:
         _display.enableUTF8Print();
         _model->initLocalSize(VISIBLE_AREA_SIZE);
     }
-    void drawText(void)
-    {
-    }
-
     void drawBat(void)
     {
         int percent = _model->getBatPercent();
@@ -158,7 +152,6 @@ private:
         }
         _display.print(percent);
     }
-
     void drawSoftVer(void)
     {
         int pos_y = (DISP_HEIGHT / 4) * 2 - 2;
@@ -176,7 +169,6 @@ private:
         _display.print("by ");
         _display.print(SOFTWARE_OWNER);
     }
-
     void drawWifi(void)
     {
         int pos_y = (DISP_HEIGHT / 4) * 2 - 2;
@@ -206,7 +198,6 @@ private:
             _display.print(STAPSK);
         }
     }
-
     void drawError(void)
     {
         _display.setFont(u8g2_font_helvR10_te);

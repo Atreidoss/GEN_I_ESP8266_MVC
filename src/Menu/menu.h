@@ -134,8 +134,8 @@ public:
         Menu(SubMenu(MenuItem(num++, "4-20mA Uout", MENU_TYPE_CURRENT_EXTERNAL)));
         Menu(SubMenu(MenuItem(num++, "Uin 0-30V", MENU_TYPE_NUMBER)));
         Menu(SubMenu(MenuItem(num++, "Calibration")));
-        Menu(SubMenu(SubMenu(MenuItem(num++, "CAL 4mA", MENU_TYPE_NUMBER))));
-        Menu(SubMenu(SubMenu(MenuItem(num++, "CAL 20mA", MENU_TYPE_NUMBER))));
+        Menu(SubMenu(SubMenu(MenuItem(num++, "CAL 4mA", MENU_TYPE_CAL_4MA))));
+        Menu(SubMenu(SubMenu(MenuItem(num++, "CAL 20mA", MENU_TYPE_CAL_20MA))));
         Menu(SubMenu(SubMenu(MenuItem(num++, "CAL Uin", MENU_TYPE_NUMBER))));
         Menu(SubMenu(SubMenu(MenuItem(num++, "CAl Ubat", MENU_TYPE_NUMBER))));
         Menu(SubMenu(MenuItem(num++, "Settings")));
