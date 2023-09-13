@@ -43,11 +43,11 @@ private:
 
         switch (type)
         {
-        case 0:
+        case MENU_TYPE_MENU:
             break;
-        case 1:
+        case MENU_TYPE_NUMBER:
             break;
-        case 2:
+        case MENU_TYPE_CURRENT_INTERNAL:
             if (isEditSwitched)
             {
                 _out.switcher(AMPERE_PS_ON, edit);
@@ -58,7 +58,7 @@ private:
                 _out.setValue(_model->getValue());
             }
             break;
-        case 3:
+        case MENU_TYPE_CURRENT_EXTERNAL:
             if (isEditSwitched)
             {
                 _out.switcher(AMPERE_PS_OFF, edit);
@@ -69,7 +69,7 @@ private:
                 _out.setValue(_model->getValue());
             }
             break;
-        case 4:
+        case MENU_TYPE_WIFI:
             if (isEditSwitched)
             {
                 _update.setMode(edit);
@@ -81,7 +81,7 @@ private:
                 _model->setWifiState(edit);
             }
             break;
-        case 5:
+        case MENU_TYPE_SOFT_VERSION:
             break;
         }
     }

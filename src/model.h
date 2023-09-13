@@ -69,6 +69,7 @@ public:
         notifyUpdate();
     }
 
+    // Получает значение напряжения батарейки, пересчитывает в проценты, сохраняет и обновляет экран
     void setBatValue(float batValue)
     {
         _batValue = batValue;
@@ -77,26 +78,31 @@ public:
         notifyUpdate();
     }
 
+    // Сохраняет статус включения меню обновления по вайфай и обновляет экран
     void setWifiState(bool state)
     {
         _wifiState = state;
         notifyUpdate();
     }
-
+    
+    // Сохраняет IP адресс из контроллера, для передачи в модель
     void setIP(String ip)
     {
         _ip = ip;
     }
 
+    // Возвращает значение напряжения батарейки 
     float getBatValue(void)
     {
         return _batValue;
     }
 
+    // Возвращает значение напряжения батарейки в процентах от полного заряда(4.2В) 
     float getBatPercent(void)
     {
         return _batPercent;
     }
+ 
     // Возвращает состояние меню: true - редактирование параметра, false - перемещение по меню
     bool getEdit()
     {
@@ -165,6 +171,7 @@ public:
         return menuArray[pos].value;
     }
 
+    // Возвращает статус включения меню обновления по вайфай
     bool getWifiState(void)
     {
         return _wifiState;
@@ -176,6 +183,7 @@ public:
         return _ip;
     }
 
+    // Обновляет представление(view)
     void updateView(void)
     {
         notifyUpdate();
