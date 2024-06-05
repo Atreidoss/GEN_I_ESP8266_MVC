@@ -6,6 +6,7 @@
 #include <u8g2lib.h>
 #include "observer.h"
 #include "model.h"
+#include "logo.cpp"
 
 #define DISP_HEIGHT 64
 #define DISP_WIDTH 128
@@ -141,7 +142,11 @@ private:
         Wire.begin();
         _display.begin();
         _display.enableUTF8Print();
-        _model->initLocalSize(VISIBLE_AREA_SIZE);
+        _model->initLocalSize(VISIBLE_AREA_SIZE);      
+        _display.clearBuffer();  
+        _display.drawXBMP(0,0,logo_width,logo_height, logo);
+        _display.sendBuffer();
+        delay(1500);
     }
     void drawBat(void)
     {
