@@ -168,7 +168,7 @@ public:
     // Возвращает тип меню для указанного пунка меню (_menuNowPos)
     int getType(int pos)
     {
-        return menuArray[_menuNowPos].type;
+        return menuArray[pos].type;
     }
 
     // Возвращает значение Value для текущего пунка меню (_menuNowPos)

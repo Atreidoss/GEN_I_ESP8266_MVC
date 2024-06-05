@@ -1,8 +1,8 @@
 #ifndef settings_h
 #define settings_h
 
-#define SOFTWARE_VERSION_NUMBER  "1.1"
-#define SOFTWARE_VERSION_DATE    "06.09.23"
+#define SOFTWARE_VERSION_NUMBER  "1.2"
+#define SOFTWARE_VERSION_DATE    "04.06.24"
 #define SOFTWARE_OWNER           "Shuvalov Vladimir"
 
 //---------------------------Настройки кнопок управления-----------------------------------------------------------------
@@ -24,8 +24,8 @@
 #define PWM_FREQUENCY 1000         // Частота ШИМ, Гц
 #define CURRENT_4MA_INT_X10 40     // Значение 4ма * 10 для отображения с десятыми долями без использования float
 #define CURRENT_20MA_INT_X10 200   // Значение 20ма * 10 для отображения с десятыми долями без использования float   
-#define DEFAULT_VALUE_4MA_PWM 58   // Дефолтное значение 10 битного ШИМ для 4 мА
-#define DEFAULT_VALUE_20MA_PWM 743 // Дефолтное значение 10 битного ШИМ для 20 мА 
+#define DEFAULT_VALUE_4MA_PWM 61   // Дефолтное значение 10 битного ШИМ для 4 мА
+#define DEFAULT_VALUE_20MA_PWM 745 // Дефолтное значение 10 битного ШИМ для 20 мА 
 
 //---------------------------Настройки кнопок управления-----------------------------------------------------------------
 #define SETTINGS_BUTTON_CODE

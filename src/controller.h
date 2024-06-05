@@ -17,8 +17,8 @@ public:
         _model = model;
         _model->setMenuPos(0);
         _model->execute(BUTTON_ENTER_CODE);
-        _out.set4(_model->getMenuTypeValue(MODE_CAL_4MA));
-        _out.set20(_model->getMenuTypeValue(MODE_CAL_20MA));
+        _out.set4(_model->getMenuTypeValue(MENU_TYPE_CAL_4MA));
+        _out.set20(_model->getMenuTypeValue(MENU_TYPE_CAL_20MA));
     }
 
     // Опрос кнопок, отправка соответствующих команд в модель.
