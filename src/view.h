@@ -7,6 +7,7 @@
 #include "observer.h"
 #include "model.h"
 #include "logo.cpp"
+#include "Menu/langs.h"
 
 #define DISP_HEIGHT 64
 #define DISP_WIDTH 128
@@ -34,10 +35,14 @@ public:
 private:
     U8G2_SH1106_128X64_NONAME_F_HW_I2C _display;
     Model *_model;
-    void draw(void)
+    bool lang = 0; // 0 - английский, 1 - Русский
+
+    void
+    draw(void)
     {
         bool edit = _model->getEdit();
         _display.clearBuffer();
+        lang = _model->intToBool(_model->getMenuTypeValue(MENU_TYPE_LANG));
         drawTop(edit);
         if (edit)
         {
@@ -64,6 +69,9 @@ private:
             case MENU_TYPE_CAL_20MA:
                 drawParam();
                 break;
+            case MENU_TYPE_LANG:
+                drawLang();
+                break;
             default:
                 drawError();
                 break;
@@ -79,15 +87,22 @@ private:
     void drawTop(bool isEdit)
     {
         int pos_y = DISP_HEIGHT / 4;
-        _display.setFont(u8g2_font_helvR10_te);
-        _display.setCursor(5, pos_y - 4);
-        if (isEdit)
+        if (lang)
         {
-            _display.print(_model->getName());
+            _display.setFont(u8g2_font_cu12_t_cyrillic); // u8g2_font_helvR10_te);
         }
         else
         {
-            _display.print(_model->getNameParent());
+            _display.setFont(u8g2_font_helvR10_te);
+        }
+        _display.setCursor(5, pos_y - 4);
+        if (isEdit)
+        {
+            _display.print(_model->getName(lang));
+        }
+        else
+        {
+            _display.print(_model->getNameParent(lang));
         }
         _display.drawHLine(0, pos_y - 2, DISP_WIDTH);
         drawBat();
@@ -96,13 +111,20 @@ private:
     {
         int pos_y = (DISP_HEIGHT / 4) * (2 + posLocal) - 2;
         _display.setCursor(5, pos_y);
-        _display.print(_model->getName(pos));
+        _display.print(_model->getName(pos, lang)); // pos));
     }
     void drawMenu(void)
     {
         int firstPos = _model->getFirstLocalIndex();
         int currentPos = _model->getPos();
-        _display.setFont(u8g2_font_helvR10_te);
+        if (lang)
+        {
+            _display.setFont(u8g2_font_cu12_t_cyrillic); // u8g2_font_helvR10_te);
+        }
+        else
+        {
+            _display.setFont(u8g2_font_helvR10_te);
+        }
         for (int i = 0; i < 3; i++)
         {
             drawMenuItem(i, firstPos + i);
@@ -142,11 +164,27 @@ private:
         Wire.begin();
         _display.begin();
         _display.enableUTF8Print();
-        _model->initLocalSize(VISIBLE_AREA_SIZE);      
-        _display.clearBuffer();  
-        _display.drawXBMP(0,0,logo_width,logo_height, logo);
+        _model->initLocalSize(VISIBLE_AREA_SIZE);
+        _display.clearBuffer();
+        _display.drawXBMP(0, 0, logo_width, logo_height, logo);
         _display.sendBuffer();
         delay(1500);
+    }
+
+    void drawLang(void)
+    {
+        int pos_y = (DISP_HEIGHT / 4) * 3;
+        int pos_x = (DISP_WIDTH / 3) - 5;
+        _display.setCursor(pos_x, pos_y);
+        if (lang)
+        {
+            _display.setFont(u8g2_font_cu12_t_cyrillic); // u8g2_font_helvR10_te);
+        }
+        else
+        {
+            _display.setFont(u8g2_font_helvR10_te);
+        }
+        _display.print(namesLang[MENU_LANG_LANG][lang]);
     }
     void drawBat(void)
     {
@@ -168,28 +206,43 @@ private:
     {
         int pos_y = (DISP_HEIGHT / 4) * 2 - 2;
         int pos_x = 0;
-        _display.setFont(u8g2_font_helvR10_te);
+        if (lang)
+        {
+            _display.setFont(u8g2_font_cu12_t_cyrillic); // u8g2_font_helvR10_te);
+        }
+        else
+        {
+            _display.setFont(u8g2_font_helvR10_te);
+        }
         _display.setCursor(pos_x, pos_y);
-        _display.print("Version: ");
+        _display.print(namesLang[MENU_LANG_VERSION][lang]); //("Version: ");
         _display.print(SOFTWARE_VERSION_NUMBER);
         pos_y += 16;
         _display.setCursor(pos_x, pos_y);
-        _display.print("Date: ");
+        _display.print(namesLang[MENU_LANG_DATE][lang]); //("Date: ");
         _display.print(SOFTWARE_VERSION_DATE);
         pos_y += 16;
         _display.setCursor(pos_x, pos_y);
-        _display.print("by ");
-        _display.print(SOFTWARE_OWNER);
+        _display.print(namesLang[MENU_LANG_OWNER][lang]);
+        // _display.print("by ");
+        // _display.print(SOFTWARE_OWNER);
     }
     void drawWifi(void)
     {
         int pos_y = (DISP_HEIGHT / 4) * 2 - 2;
         int pos_x = 0;
-        _display.setFont(u8g2_font_helvR10_te);
+        if (lang)
+        {
+            _display.setFont(u8g2_font_cu12_t_cyrillic); // u8g2_font_helvR10_te);
+        }
+        else
+        {
+            _display.setFont(u8g2_font_helvR10_te);
+        }
         if (_model->getWifiState())
         {
             _display.setCursor(pos_x, pos_y);
-            _display.print("Open URL: ");
+            _display.print(namesLang[MENU_LANG_URL][lang]); //"Open URL: ");
             pos_y += 16;
             _display.setFont(u8g2_font_helvR08_tf);
             _display.setCursor(pos_x + 5, pos_y);
@@ -199,22 +252,29 @@ private:
         else
         {
             _display.setCursor(pos_x, pos_y);
-            _display.print("Connect to WIFI");
+            _display.print(namesLang[MENU_LANG_CONNECT][lang]); //"Connect to WIFI");
             pos_y += 16;
             _display.setCursor(pos_x, pos_y);
-            _display.print("Name: ");
+            _display.print(namesLang[MENU_LANG_NAME][lang]); //"Name: ");
             _display.print(STASSID);
             pos_y += 16;
             _display.setCursor(pos_x, pos_y);
-            _display.print("Pass: ");
+            _display.print(namesLang[MENU_LANG_PASS][lang]); //"Pass: ");
             _display.print(STAPSK);
         }
     }
     void drawError(void)
     {
-        _display.setFont(u8g2_font_helvR10_te);
+        if (lang)
+        {
+            _display.setFont(u8g2_font_cu12_t_cyrillic); // u8g2_font_helvR10_te);
+        }
+        else
+        {
+            _display.setFont(u8g2_font_helvR10_te);
+        }
         _display.setCursor(DISP_WIDTH / 2 - 30, DISP_HEIGHT / 2 + 10);
-        _display.print("ERROR");
+        _display.print(namesLang[MENU_LANG_ERROR][lang]); //"ERROR");
     }
 };
 

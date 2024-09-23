@@ -129,20 +129,20 @@ public:
         // Menu(SubMenu(SubMenu(MenuItem(num++, "Кал. U бат.", 1))));
         // Menu(SubMenu(MenuItem(num++, "Настройки", 1)));
         // Menu(SubMenu(MenuItem(num++, "Версия ПО", 1)));
-        Menu(MenuItem(num++, "Main menu", MENU_TYPE_MENU));
-        Menu(SubMenu(MenuItem(num++, "4-20mA Uin", MENU_TYPE_CURRENT_INTERNAL)));
-        Menu(SubMenu(MenuItem(num++, "4-20mA Uout", MENU_TYPE_CURRENT_EXTERNAL)));
-        Menu(SubMenu(MenuItem(num++, "Uin 0-30V", MENU_TYPE_NUMBER)));
-        Menu(SubMenu(MenuItem(num++, "Calibration", MENU_TYPE_MENU)));
-        Menu(SubMenu(SubMenu(MenuItem(num++, "CAL 4mA", MENU_TYPE_CAL_4MA))));
-        Menu(SubMenu(SubMenu(MenuItem(num++, "CAL 20mA", MENU_TYPE_CAL_20MA))));
-        Menu(SubMenu(SubMenu(MenuItem(num++, "CAL Uin", MENU_TYPE_NUMBER))));
-        Menu(SubMenu(SubMenu(MenuItem(num++, "CAl Ubat", MENU_TYPE_NUMBER))));
-        Menu(SubMenu(MenuItem(num++, "Settings", MENU_TYPE_MENU)));
-        Menu(SubMenu(SubMenu(MenuItem(num++, "Set 1", MENU_TYPE_NUMBER))));
-        Menu(SubMenu(SubMenu(MenuItem(num++, "Set 2", MENU_TYPE_NUMBER))));
-        Menu(SubMenu(MenuItem(num++, "Update", MENU_TYPE_WIFI)));
-        Menu(SubMenu(MenuItem(num++, "Software Ver", MENU_TYPE_SOFT_VERSION)));
+        Menu(MenuItem(num++, "Main menu", MENU_TYPE_MENU, "Осн. меню"));
+        Menu(SubMenu(MenuItem(num++, "4-20mA Uin", MENU_TYPE_CURRENT_INTERNAL,"Ток U внутр.")));
+        Menu(SubMenu(MenuItem(num++, "4-20mA Uout", MENU_TYPE_CURRENT_EXTERNAL,"Ток U внеш.")));
+        Menu(SubMenu(MenuItem(num++, "Uin 0-30V", MENU_TYPE_NUMBER, "Измер. U")));
+        Menu(SubMenu(MenuItem(num++, "Calibration", MENU_TYPE_MENU,"Калибровка")));
+        Menu(SubMenu(SubMenu(MenuItem(num++, "CAL 4mA", MENU_TYPE_CAL_4MA, "Кал. 4 мА"))));
+        Menu(SubMenu(SubMenu(MenuItem(num++, "CAL 20mA", MENU_TYPE_CAL_20MA,"Кал. 20 мА"))));
+        Menu(SubMenu(SubMenu(MenuItem(num++, "CAL Uin", MENU_TYPE_NUMBER, "Кал. U пит."))));
+        Menu(SubMenu(SubMenu(MenuItem(num++, "CAl Ubat", MENU_TYPE_NUMBER, "Кал. U бат."))));
+        Menu(SubMenu(MenuItem(num++, "Settings", MENU_TYPE_MENU,"Настройки")));
+        Menu(SubMenu(SubMenu(MenuItem(num++, "Language", MENU_TYPE_LANG, "Язык"))));
+        Menu(SubMenu(SubMenu(MenuItem(num++, "Set 2", MENU_TYPE_NUMBER, "Пункт 2"))));
+        Menu(SubMenu(MenuItem(num++, "Update", MENU_TYPE_WIFI, "Обновление")));
+        Menu(SubMenu(MenuItem(num++, "Software Ver", MENU_TYPE_SOFT_VERSION, "Версия ПО")));
         return num;
     }
 

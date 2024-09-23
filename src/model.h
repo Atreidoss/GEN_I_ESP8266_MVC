@@ -19,22 +19,29 @@ public:
         initEEPROM(_menuSize);
     }
 
-    // Возвращает имя пункта меню/подменю для указанного индекса
-    String getName(int menuPos)
+    // Возвращает имя пункта меню/подменю для указанного индекса на Русском или Английском
+    String getName(int menuPos, bool lang = false)
     {
-        return menuArray[menuPos].name;
+        if (lang)
+            return menuArray[menuPos].nameRU;
+        else
+            return menuArray[menuPos].name;
     }
 
     // Возвращает имя текущего пункта меню/подменю
-    String getName(void)
+    String getName(bool lang = false)
     {
+        
+        if (lang)
+        return menuArray[_menuNowPos].nameRU;
+        else
         return menuArray[_menuNowPos].name;
     }
 
     // Возвращает имя родительского меню для текущего пункта меню/подменю
-    String getNameParent(void)
+    String getNameParent(bool lang = false)
     {
-        return getName(getParent());
+        return getName(getParent(), lang);
     }
 
     // Устанавливает значение (value) для текущего меню и обновляет эран(view)
@@ -146,7 +153,7 @@ public:
     {
         return menuArray[getParent()].indexChild;
     }
- 
+
     // Возвращает индекс первого дочернего пункта для текущего меню/подменю
     int getChild(void)
     {
@@ -250,12 +257,17 @@ public:
         }
     }
 
-    // Инициализация переменных для области видимых пунктов на экране, устанавливается максимальное количество строк одновременно отображаемых на экране 
+    // Инициализация переменных для области видимых пунктов на экране, устанавливается максимальное количество строк одновременно отображаемых на экране
     void initLocalSize(int size)
     {
         _localPos = 0;
         _localFirstIndex = 0;
         _localPosMax = size;
+    }
+
+    bool intToBool(int val)
+    {
+        return val % 2;
     }
 
 private:

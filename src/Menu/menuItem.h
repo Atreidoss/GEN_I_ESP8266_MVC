@@ -16,14 +16,15 @@ enum menuType : int
     MENU_TYPE_CAL_4MA,              //  7 - калибровка 4 МА, редактируемый
     MENU_TYPE_CAL_20MA,             //  8 - калибровка 20 МА, редактируемый
     MENU_TYPE_CAL_VOLTS,            //  9 - калибровка измерений напряжения 
-    MENU_TYPE_CAL_BAT               // 10 - калибровка измерений напряжения батарейки
+    MENU_TYPE_CAL_BAT,              // 10 - калибровка измерений напряжения батарейки
+    MENU_TYPE_LANG                  // 11 - выбор языка    
 };
 // класс пункта меню
 class MenuItem
 {
 public:
     MenuItem() {}
-    MenuItem(int indG, String text, int mType = MENU_TYPE_MENU) : indexGlobal(indG), name(text), type(mType) {}
+    MenuItem(int indG, String text, int mType = MENU_TYPE_MENU, String textRu = "") : indexGlobal(indG), name(text), type(mType), nameRU(textRu) {}
 
     int indexGlobal = 0; // на начальном этапе инициализации соотвествует номеру элемента массива классов
     int indexParent = 0; // номер родителя
@@ -33,7 +34,8 @@ public:
     int value = 0;       // значение, если пункт меню редактируемый
     int type = 0;        // тип меню : ...
     bool eeprom = false; // сохранять ли пункт в энергонезависимую память
-    String name = "";    // имя пункта, один из параметров
+    String nameRU = "";    // имя пункта, один из параметров Русский язык
+    String name = "";    // имя пункта, один из параметров Английский язык
 };
 
 #endif
