@@ -57,6 +57,9 @@ private:
             case MENU_TYPE_CURRENT_EXTERNAL:
                 drawAmper();
                 break;
+            case MENU_TYPE_VOLTS_MEASURE:
+                drawVoltage();
+                break;
             case MENU_TYPE_WIFI:
                 drawWifi();
                 break;
@@ -150,6 +153,17 @@ private:
     }
     // todo добавить вывод 10Bit PWM
     void drawAmper(void)
+    {
+        int pos_y = (DISP_HEIGHT / 4) * 3;
+        int pos_x = (DISP_WIDTH / 2) - 20;
+        _display.setFont(u8g2_font_inb16_mn); // u8g2_font_helvR10_te);
+        _display.setCursor(pos_x, pos_y);
+        _display.print(_model->getValue() / 10);
+        _display.print(".");
+        _display.print(_model->getValue() % 10);
+    }
+    // Вывод значения измеренного напряжения на входе
+    void drawVoltage(void)
     {
         int pos_y = (DISP_HEIGHT / 4) * 3;
         int pos_x = (DISP_WIDTH / 2) - 20;

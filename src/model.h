@@ -31,11 +31,11 @@ public:
     // Возвращает имя текущего пункта меню/подменю
     String getName(bool lang = false)
     {
-        
+
         if (lang)
-        return menuArray[_menuNowPos].nameRU;
+            return menuArray[_menuNowPos].nameRU;
         else
-        return menuArray[_menuNowPos].name;
+            return menuArray[_menuNowPos].name;
     }
 
     // Возвращает имя родительского меню для текущего пункта меню/подменю
@@ -84,6 +84,13 @@ public:
         _batValue = batValue;
         _batPercent = ((_batValue - 3.00) / 1.20) * 100;
         _batPercent = constrain(_batPercent, 0.00, 100.00);
+        notifyUpdate();
+    }
+
+    // Получает значение напряжения на входе, пересчитывает в проценты, сохраняет и обновляет экран
+    void setVoltageValue(float voltageValue)
+    {
+        _batValue = voltageValue;
         notifyUpdate();
     }
 
@@ -278,6 +285,7 @@ private:
     int _localFirstIndex = 0;
     float _batValue = 0;
     float _batPercent = 0;
+    float _voltageValue = 0;
     String _ip = "";
     bool _wifiState = false;
     int _tempValue = 0;

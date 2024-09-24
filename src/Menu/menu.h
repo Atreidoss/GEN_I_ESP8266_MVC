@@ -132,7 +132,7 @@ public:
         Menu(MenuItem(num++, "Main menu", MENU_TYPE_MENU, "Осн. меню"));
         Menu(SubMenu(MenuItem(num++, "4-20mA Uin", MENU_TYPE_CURRENT_INTERNAL,"Ток U внутр.")));
         Menu(SubMenu(MenuItem(num++, "4-20mA Uout", MENU_TYPE_CURRENT_EXTERNAL,"Ток U внеш.")));
-        Menu(SubMenu(MenuItem(num++, "Uin 0-30V", MENU_TYPE_NUMBER, "Измер. U")));
+        Menu(SubMenu(MenuItem(num++, "Uin 0-30V", MENU_TYPE_VOLTS_MEASURE, "Измер. U")));
         Menu(SubMenu(MenuItem(num++, "Calibration", MENU_TYPE_MENU,"Калибровка")));
         Menu(SubMenu(SubMenu(MenuItem(num++, "CAL 4mA", MENU_TYPE_CAL_4MA, "Кал. 4 мА"))));
         Menu(SubMenu(SubMenu(MenuItem(num++, "CAL 20mA", MENU_TYPE_CAL_20MA,"Кал. 20 мА"))));

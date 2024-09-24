@@ -26,6 +26,7 @@ public:
     {
         buttonsHandle();
         measureHandle();
+        measureVoltageHandle();
         wifiHandle(_isWifiOn);
     }
 
@@ -137,6 +138,20 @@ private:
             curmil = millis();
         }
     }
+
+    void measureVoltageHandle(void)
+    {
+        static unsigned long curmil = 0;
+        if (_model->getType() == MENU_TYPE_VOLTS_MEASURE)
+        {
+            if (millis() - curmil > POOL_MEASURMENT_BAT_MS)
+            {
+                _model->setBatValue(_adc.getValue(ADC_U, MEASURMENT_VOLTAGE_COUNT));
+                curmil = millis();
+            }
+        }
+    }
+
     void wifiHandle(bool mode)
     {
         if (mode)
