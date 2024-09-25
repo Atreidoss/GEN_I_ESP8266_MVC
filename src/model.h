@@ -90,7 +90,7 @@ public:
     // Получает значение напряжения на входе, пересчитывает в проценты, сохраняет и обновляет экран
     void setVoltageValue(float voltageValue)
     {
-        _batValue = voltageValue;
+        _voltageValue = voltageValue;
         notifyUpdate();
     }
 
@@ -117,6 +117,12 @@ public:
     float getBatPercent(void)
     {
         return _batPercent;
+    }
+
+    // Возвращает значение напряжения на входе
+    float getVoltageValue(void)
+    {
+        return _voltageValue;
     }
 
     // Возвращает состояние меню: true - редактирование параметра, false - перемещение по меню

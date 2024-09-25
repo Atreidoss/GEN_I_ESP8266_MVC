@@ -34,6 +34,7 @@ private:
     Model *_model;
     Keyboard _keyboard;
     Measure _adc;
+    Measure _voltage;
     output _out;
     web _update;
 
@@ -55,6 +56,9 @@ private:
             break;
         case MENU_TYPE_CURRENT_EXTERNAL:
             currentControl(isEditSwitched, edit, AMPERE_PS_OFF);
+            break;
+        case MENU_TYPE_VOLTS_MEASURE:
+            measureVoltageHandle();
             break;
         case MENU_TYPE_WIFI:
             wifiControl(isEditSwitched, edit);
@@ -144,9 +148,9 @@ private:
         static unsigned long curmil = 0;
         if (_model->getType() == MENU_TYPE_VOLTS_MEASURE)
         {
-            if (millis() - curmil > POOL_MEASURMENT_BAT_MS)
+            if (millis() - curmil > POOL_MEASURMENT_VOLTAGE_MS)
             {
-                _model->setBatValue(_adc.getValue(ADC_U, MEASURMENT_VOLTAGE_COUNT));
+                _model->setBatValue(_voltage.getValue(ADC_U, MEASURMENT_VOLTAGE_COUNT));
                 curmil = millis();
             }
         }

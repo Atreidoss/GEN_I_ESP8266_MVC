@@ -54,8 +54,8 @@
 #define DIV_CH1_P 100
 // CH2 - Bat value, делитель канала 2 (в кОм), измерение напряжения аккумулятора
 #define ADC_BAT 2
-#define DIV_CH2_M 10
-#define DIV_CH2_P 10
+#define DIV_CH2_M 100
+#define DIV_CH2_P 100
 // CH3 - value, делитель канала 3 (в кОм), измерение напряжения 
 #define ADC_CH3 3    // reserved
 #define DIV_CH3_M 10 // reserved
@@ -63,7 +63,7 @@
 
 #define POOL_MEASURMENT_BAT_MS 500 // Период измерения напряжения батареи, мс
 #define MEASURMENT_BAT_COUNT 15    // Количество измерений напряжения батареи
-#define POOL_MEASURMENT_BAT_MS 250 // Период измерения напряжения батареи, мс
+#define POOL_MEASURMENT_VOLTAGE_MS 250 // Период измерения напряжения батареи, мс
 #define MEASURMENT_VOLTAGE_COUNT 15    // Количество измерений напряжения батареи
 
 #endif

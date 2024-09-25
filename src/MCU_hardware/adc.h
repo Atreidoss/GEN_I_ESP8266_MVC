@@ -19,7 +19,7 @@
 #define ADC_BAT 2
 #define DIV_CH2_M 10
 #define DIV_CH2_P 10
-// CH3 - value, делитель канала 3 (в кОм), измерение напряжения 
+// CH3 - value, делитель канала 3 (в кОм), измерение напряжения
 #define ADC_CH3 3    // reserved
 #define DIV_CH3_M 10 // reserved
 #define DIV_CH3_P 10 // reserved
@@ -41,31 +41,33 @@ public:
         uint32_t tempValue = 0;
         for (int i = 0; i < readCount; i++)
         {
-            tempValue += adcRead(channel);
+            tempValue += _ADS.readADC_SingleEnded(channel);
         }
         tempValue = tempValue / readCount;
         return adcToVoltage(tempValue, divP[channel], divM[channel]);
     }
+    
+    void setOffset(int offset)
+    {
+        _offset = offset;
+    }
 
 private:
     Adafruit_ADS1115 _ADS;
+    int _offset = 0;
+    const uint16_t divP[4] = {DIV_CH0_P, DIV_CH1_P, DIV_CH2_P, DIV_CH3_P};
+    const uint16_t divM[4] = {DIV_CH0_M, DIV_CH1_M, DIV_CH2_M, DIV_CH3_M};
 
-    uint16_t divP[4] = {DIV_CH0_P, DIV_CH1_P, DIV_CH2_P, DIV_CH3_P};
-    uint16_t divM[4] = {DIV_CH0_M, DIV_CH1_M, DIV_CH2_M, DIV_CH3_M};
     void adcInit(uint8_t addres)
     {
         _ADS.begin(addres);
         _ADS.setGain(GAIN_TWOTHIRDS); // GAIN_TWOTHIRDS = ADS1X15_REG_CONFIG_PGA_6_144V
         _ADS.setDataRate(RATE_ADS1115_475SPS);
     }
-    int16_t adcRead(uint8_t channel)
-    {
-        return _ADS.readADC_SingleEnded(channel);
-    }
 
-    float adcToVoltage(uint16_t adcRaw, uint8_t divP, uint8_t divM)
+    float adcToVoltage(uint16_t adcRaw, uint16_t divP, uint16_t divM)
     {
-        float voltage = ((divP + divM) * _ADS.computeVolts(adcRaw)) / divM;
+        float voltage = ((divP + divM) * (_ADS.computeVolts(adcRaw) + (float)_offset / 100.00)) / divM;
         return voltage;
     }
 };
