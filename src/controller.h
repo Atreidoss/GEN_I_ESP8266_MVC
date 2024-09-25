@@ -11,8 +11,7 @@
 class Controller
 {
 public:
-    Controller(Model *model) : _keyboard()
-
+    Controller(Model *model) : _keyboard(),_adc(true), _voltage(false)
     {
         _model = model;
         _model->setMenuPos(0);
@@ -26,7 +25,6 @@ public:
     {
         buttonsHandle();
         measureHandle();
-        measureVoltageHandle();
         wifiHandle(_isWifiOn);
     }
 
@@ -58,7 +56,7 @@ private:
             currentControl(isEditSwitched, edit, AMPERE_PS_OFF);
             break;
         case MENU_TYPE_VOLTS_MEASURE:
-            measureVoltageHandle();
+            //measureVoltageHandle(edit);
             break;
         case MENU_TYPE_WIFI:
             wifiControl(isEditSwitched, edit);
@@ -143,14 +141,14 @@ private:
         }
     }
 
-    void measureVoltageHandle(void)
+    void measureVoltageHandle(bool edit)
     {
         static unsigned long curmil = 0;
-        if (_model->getType() == MENU_TYPE_VOLTS_MEASURE)
+        if (edit == true)
         {
             if (millis() - curmil > POOL_MEASURMENT_VOLTAGE_MS)
             {
-                _model->setBatValue(_voltage.getValue(ADC_U, MEASURMENT_VOLTAGE_COUNT));
+                _model->setVoltageValue(_voltage.getValue(ADC_U, MEASURMENT_VOLTAGE_COUNT));
                 curmil = millis();
             }
         }

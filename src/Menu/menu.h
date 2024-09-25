@@ -130,9 +130,9 @@ public:
         // Menu(SubMenu(MenuItem(num++, "Настройки", 1)));
         // Menu(SubMenu(MenuItem(num++, "Версия ПО", 1)));
         Menu(MenuItem(num++, "Main menu", MENU_TYPE_MENU, "Осн. меню"));
-        Menu(SubMenu(MenuItem(num++, "4-20mA Uin", MENU_TYPE_CURRENT_INTERNAL,"Ток U внутр.")));
-        Menu(SubMenu(MenuItem(num++, "4-20mA Uout", MENU_TYPE_CURRENT_EXTERNAL,"Ток U внеш.")));
-        Menu(SubMenu(MenuItem(num++, "Uin 0-30V", MENU_TYPE_VOLTS_MEASURE, "Измер. U")));
+        Menu(SubMenu(MenuItem(num++, "4-20mA Uin", MENU_TYPE_CURRENT_INTERNAL,"Ток Uвнут.")));
+        Menu(SubMenu(MenuItem(num++, "4-20mA Uout", MENU_TYPE_CURRENT_EXTERNAL,"Ток Uвнеш.")));
+        Menu(SubMenu(MenuItem(num++, "Uin 0-30V", MENU_TYPE_VOLTS_MEASURE, "Измер. U 0-30")));
         Menu(SubMenu(MenuItem(num++, "Calibration", MENU_TYPE_MENU,"Калибровка")));
         Menu(SubMenu(SubMenu(MenuItem(num++, "CAL 4mA", MENU_TYPE_CAL_4MA, "Кал. 4 мА"))));
         Menu(SubMenu(SubMenu(MenuItem(num++, "CAL 20mA", MENU_TYPE_CAL_20MA,"Кал. 20 мА"))));

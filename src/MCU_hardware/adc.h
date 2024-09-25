@@ -31,9 +31,12 @@
 class Measure
 {
 public:
-    Measure()
+    Measure(bool init)
     {
-        adcInit(ADC_ADDR);
+        if (init == true)
+        {
+            adcInit(ADC_ADDR);
+        }
     }
 
     float getValue(uint8_t channel, uint8_t readCount = 1)
@@ -46,7 +49,7 @@ public:
         tempValue = tempValue / readCount;
         return adcToVoltage(tempValue, divP[channel], divM[channel]);
     }
-    
+
     void setOffset(int offset)
     {
         _offset = offset;
