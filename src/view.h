@@ -72,6 +72,9 @@ private:
             case MENU_TYPE_CAL_20MA:
                 drawParam();
                 break;
+            case MENU_TYPE_CAL_VOLTS:
+                drawVoltage();
+                break;
             case MENU_TYPE_LANG:
                 drawLang();
                 break;

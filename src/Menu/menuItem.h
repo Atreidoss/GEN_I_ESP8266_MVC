@@ -17,7 +17,7 @@ enum menuType : int
     MENU_TYPE_CAL_20MA,             //  8 - калибровка 20 МА, редактируемый
     MENU_TYPE_CAL_VOLTS,            //  9 - калибровка измерений напряжения 
     MENU_TYPE_CAL_BAT,              // 10 - калибровка измерений напряжения батарейки
-    MENU_TYPE_LANG                  // 11 - выбор языка    
+    MENU_TYPE_LANG,                 // 11 - выбор языка 
 };
 // класс пункта меню
 class MenuItem

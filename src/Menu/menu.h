@@ -136,7 +136,7 @@ public:
         Menu(SubMenu(MenuItem(num++, "Calibration", MENU_TYPE_MENU,"Калибровка")));
         Menu(SubMenu(SubMenu(MenuItem(num++, "CAL 4mA", MENU_TYPE_CAL_4MA, "Кал. 4 мА"))));
         Menu(SubMenu(SubMenu(MenuItem(num++, "CAL 20mA", MENU_TYPE_CAL_20MA,"Кал. 20 мА"))));
-        Menu(SubMenu(SubMenu(MenuItem(num++, "CAL Uin", MENU_TYPE_NUMBER, "Кал. U пит."))));
+        Menu(SubMenu(SubMenu(MenuItem(num++, "CAL Uin", MENU_TYPE_CAL_VOLTS, "Кал. U пит."))));
         Menu(SubMenu(SubMenu(MenuItem(num++, "CAl Ubat", MENU_TYPE_NUMBER, "Кал. U бат."))));
         Menu(SubMenu(MenuItem(num++, "Settings", MENU_TYPE_MENU,"Настройки")));
         Menu(SubMenu(SubMenu(MenuItem(num++, "Language", MENU_TYPE_LANG, "Язык"))));

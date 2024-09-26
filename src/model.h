@@ -124,7 +124,7 @@ public:
     {
         return _voltageValue;
     }
-
+    
     // Возвращает состояние меню: true - редактирование параметра, false - перемещение по меню
     bool getEdit()
     {

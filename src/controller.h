@@ -11,7 +11,7 @@
 class Controller
 {
 public:
-    Controller(Model *model) : _keyboard(),_adc(true), _voltage(false)
+    Controller(Model *model) : _keyboard(), _adc()
     {
         _model = model;
         _model->setMenuPos(0);
@@ -24,7 +24,8 @@ public:
     void loop()
     {
         buttonsHandle();
-        measureHandle();
+        measureBatHandle();
+        measureVoltageHandle();
         wifiHandle(_isWifiOn);
     }
 
@@ -32,10 +33,10 @@ private:
     Model *_model;
     Keyboard _keyboard;
     Measure _adc;
-    Measure _voltage;
     output _out;
     web _update;
 
+    bool _isVoltageMasure = false;
     bool _isWifiOn = false;
 
     void updateCustomMenu(bool isEditSwitched)
@@ -56,7 +57,7 @@ private:
             currentControl(isEditSwitched, edit, AMPERE_PS_OFF);
             break;
         case MENU_TYPE_VOLTS_MEASURE:
-            //measureVoltageHandle(edit);
+            _isVoltageMasure = edit;
             break;
         case MENU_TYPE_WIFI:
             wifiControl(isEditSwitched, edit);
@@ -64,10 +65,14 @@ private:
         case MENU_TYPE_SOFT_VERSION:
             break;
         case MENU_TYPE_CAL_4MA:
-            calControl(isEditSwitched, edit, MODE_CAL_4MA);
+            calCurrent(isEditSwitched, edit, MODE_CAL_4MA);
             break;
         case MENU_TYPE_CAL_20MA:
-            calControl(isEditSwitched, edit, MODE_CAL_20MA);
+            calCurrent(isEditSwitched, edit, MODE_CAL_20MA);
+            break;
+        case MENU_TYPE_CAL_VOLTS:
+            _isVoltageMasure = edit;
+            calVoltage(isEditSwitched);
             break;
         }
     }
@@ -102,7 +107,7 @@ private:
         }
     }
 
-    void calControl(bool isSwitched, bool isEdit, int mode)
+    void calCurrent(bool isSwitched, bool isEdit, int mode)
     {
         if (isSwitched)
         {
@@ -118,6 +123,11 @@ private:
         }
     }
 
+    void calVoltage(bool isSwitched)
+    {
+        _adc.setOffset(ADC_U, _model->getValue());
+    }
+
     // Крутится в цикле, получает события нажатий/зажатий кнопок от клавиатуры
     // Передает событие в модель для обновления состояния
     // По событию формирует управление переферией (измерение нарпяжений, шим генерация тока,
@@ -131,7 +141,7 @@ private:
         }
     }
 
-    void measureHandle(void)
+    void measureBatHandle(void)
     {
         static unsigned long curmil = 0;
         if (millis() - curmil > POOL_MEASURMENT_BAT_MS)
@@ -141,14 +151,14 @@ private:
         }
     }
 
-    void measureVoltageHandle(bool edit)
+    void measureVoltageHandle(void)
     {
         static unsigned long curmil = 0;
-        if (edit == true)
+        if (_isVoltageMasure == true)
         {
             if (millis() - curmil > POOL_MEASURMENT_VOLTAGE_MS)
             {
-                _model->setVoltageValue(_voltage.getValue(ADC_U, MEASURMENT_VOLTAGE_COUNT));
+                _model->setVoltageValue(_adc.getValue(ADC_U, MEASURMENT_VOLTAGE_COUNT));
                 curmil = millis();
             }
         }

@@ -31,12 +31,9 @@
 class Measure
 {
 public:
-    Measure(bool init)
+    Measure()
     {
-        if (init == true)
-        {
-            adcInit(ADC_ADDR);
-        }
+        adcInit(ADC_ADDR);
     }
 
     float getValue(uint8_t channel, uint8_t readCount = 1)
@@ -46,18 +43,24 @@ public:
         {
             tempValue += _ADS.readADC_SingleEnded(channel);
         }
-        tempValue = tempValue / readCount;
-        return adcToVoltage(tempValue, divP[channel], divM[channel]);
+        _rawValue[channel] = tempValue / readCount;
+        return adcToVoltage(_rawValue[channel], channel);
     }
 
-    void setOffset(int offset)
+    uint32_t getRawValue(uint8_t channel)
     {
-        _offset = offset;
+        return _rawValue[channel];
+    }
+
+    void setOffset(uint8_t channel, int offset)
+    {
+        _offset[channel] = offset;
     }
 
 private:
     Adafruit_ADS1115 _ADS;
-    int _offset = 0;
+    int _offset[4] = {0, 0, 0, 0};
+    uint32_t _rawValue[4];
     const uint16_t divP[4] = {DIV_CH0_P, DIV_CH1_P, DIV_CH2_P, DIV_CH3_P};
     const uint16_t divM[4] = {DIV_CH0_M, DIV_CH1_M, DIV_CH2_M, DIV_CH3_M};
 
@@ -68,9 +71,9 @@ private:
         _ADS.setDataRate(RATE_ADS1115_475SPS);
     }
 
-    float adcToVoltage(uint16_t adcRaw, uint16_t divP, uint16_t divM)
+    float adcToVoltage(uint16_t adcRaw, uint8_t channel)
     {
-        float voltage = ((divP + divM) * (_ADS.computeVolts(adcRaw) + (float)_offset / 100.00)) / divM;
+        float voltage = ((divP[channel] + divM[channel]) * (_ADS.computeVolts(adcRaw) + (float)_offset[channel] / 100.00)) / divM[channel];
         return voltage;
     }
 };
