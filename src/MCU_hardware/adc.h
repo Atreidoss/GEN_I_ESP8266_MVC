@@ -59,7 +59,7 @@ public:
 
 private:
     Adafruit_ADS1115 _ADS;
-    int _offset[4] = {0, 0, 0, 0};
+    int _offset[4] = {100, 100, 100, 100};
     uint32_t _rawValue[4];
     const uint16_t divP[4] = {DIV_CH0_P, DIV_CH1_P, DIV_CH2_P, DIV_CH3_P};
     const uint16_t divM[4] = {DIV_CH0_M, DIV_CH1_M, DIV_CH2_M, DIV_CH3_M};
@@ -73,7 +73,8 @@ private:
 
     float adcToVoltage(uint16_t adcRaw, uint8_t channel)
     {
-        float voltage = ((divP[channel] + divM[channel]) * (_ADS.computeVolts(adcRaw) + (float)_offset[channel] / 100.00)) / divM[channel];
+        float coef = ((float)divP[channel] + (float)divM[channel]) / (float)divM[channel];
+        float voltage = (coef * _ADS.computeVolts(adcRaw));// * ((float)_offset[channel] / 100.00));
         return voltage;
     }
 };
