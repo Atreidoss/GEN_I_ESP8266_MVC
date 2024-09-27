@@ -73,8 +73,22 @@ private:
 
     float adcToVoltage(uint16_t adcRaw, uint8_t channel)
     {
-        float coef = ((float)divP[channel] + (float)divM[channel]) / (float)divM[channel];
-        float voltage = (coef * _ADS.computeVolts(adcRaw));// * ((float)_offset[channel] / 100.00));
+        // float coef = ((float)divP[channel] + (float)divM[channel]) / (float)divM[channel];
+        float voltage = 0;
+
+        switch (channel)
+        {
+        case ADC_BAT:
+            voltage = ((divP[channel] + divM[channel]) * _ADS.computeVolts(adcRaw)) / divM[channel]; // * ((float)_offset[channel] / 100.00));
+            break;
+        case ADC_U:
+            voltage = (0.0000000028 * pow(adcRaw, 3) - 0.0000363278 * pow(adcRaw, 2) + 0.3530067731 * adcRaw - 177.2601981275) / 100;
+            if (voltage < 0)
+                voltage = 0;
+            break;
+        default:
+            break;
+        }
         return voltage;
     }
 };

@@ -172,7 +172,7 @@ private:
         int pos_x = (DISP_WIDTH / 2) - 20;
         _display.setFont(u8g2_font_inb16_mn); // u8g2_font_helvR10_te);
         _display.setCursor(pos_x, pos_y);
-        _display.print(_model->getVoltageValue());
+        _display.print(_model->getVoltageValue(), 1);
     }
     void displayInit(void)
     {
