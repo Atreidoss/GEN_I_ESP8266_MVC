@@ -82,7 +82,8 @@ private:
             voltage = ((divP[channel] + divM[channel]) * _ADS.computeVolts(adcRaw)) / divM[channel]; // * ((float)_offset[channel] / 100.00));
             break;
         case ADC_U:
-            voltage = (0.0000000028 * pow(adcRaw, 3) - 0.0000363278 * pow(adcRaw, 2) + 0.3530067731 * adcRaw - 177.2601981275) / 100;
+            // voltage = (0.0000000028 * pow(adcRaw, 3) - 0.0000363278 * pow(adcRaw, 2) + 0.3530067731 * adcRaw - 177.2601981275) / 100;
+            voltage = (0.0000000023 * pow(adcRaw, 3) - 0.0000289110 * pow(adcRaw, 2) + 0.3129732138 * adcRaw - 113.3918712677) / 100;
             if (voltage < 0)
                 voltage = 0;
             break;
